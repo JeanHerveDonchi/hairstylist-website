@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-const count = ref(0)
+import NavBar from './components/ui/NavBar.vue';
 </script>
-
 <template>
-  <h1>You did it!</h1>
   <div id="app">
-  <button @click="count++">{{ count }}</button>
-</div>
+    <NavBar />
+    <main class="pt-[116px]">
+      <RouterView />
+    </main>
+  </div>
 </template>
 
 <style scoped></style>
