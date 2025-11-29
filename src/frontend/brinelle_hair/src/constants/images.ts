@@ -18,3 +18,12 @@ export const GALLERY_IMAGES = {
     // Gallery images will be added here
     // example: image1: '/images/gallery/1.jpg',
 } as const
+
+/**
+ * Placeholder image constant
+ * Future: Replace with actual placeholder image path
+ */
+export const PLACEHOLDER_CONFIG = {
+  color: '#D1D5DB', // Tailwind gray-300
+  image: '', // Future: '/images/placeholder.png'
+} as const
