@@ -71,7 +71,7 @@ const hoverBackgroundColor = computed(() => {
     @click="handleClick"
     class="
       px-8 py-4 
-      rounded-[30px] 
+      rounded-[25px] 
       text-white 
       font-poppins font-semibold 
       text-[18px] md:text-[24px] 
