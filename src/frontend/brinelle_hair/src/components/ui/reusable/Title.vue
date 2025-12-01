@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { COLORS } from '@/constants/colors';
+
 /**
  * Reusable Title Component
  * 
  * Props:
  * - text: The title text to display
- * - color: Text color (default: #AB9C93)
+ * - color: Text color (default: COLOR.color_title)
  */
 
 interface Props {
@@ -13,7 +15,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  color: '#AB9C93'
+  color: COLORS.color_title
 })
 </script>
 

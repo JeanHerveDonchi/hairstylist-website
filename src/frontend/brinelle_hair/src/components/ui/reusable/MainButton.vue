@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { COLORS } from '@/constants/colors';
 import { computed, onMounted } from 'vue'
 
 /**
@@ -6,7 +7,7 @@ import { computed, onMounted } from 'vue'
  * 
  * Props:
  * - text: Button text (required)
- * - background: Background color in HEX format (default: #F98B54)
+ * - background: Background color in HEX format (default: color_primary)
  * - onClick: Click handler function (optional)
  */
 
@@ -16,7 +17,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  background: '#F98B54'
+  background: COLORS.color_primary
 })
 
 // Emit for click events (Vue way of handling events from child to parent)
@@ -32,7 +33,7 @@ onMounted(() => {
   if (!HEX_COLOR_REGEX.test(props.background)) {
     throw new Error(
       `MainButton: Invalid hex color format "${props.background}". ` +
-      `Expected format: #RRGGBB (e.g., #F98B54) or #RGB (e.g., #F00)`
+      `Expected format: #RRGGBB or #RGB`
     )
   }
 })
@@ -71,8 +72,7 @@ const hoverBackgroundColor = computed(() => {
     @click="handleClick"
     class="
       px-8 py-4 
-      rounded-[25px] 
-      text-white 
+      rounded-[25px]
       font-poppins font-semibold 
       text-[18px] md:text-[24px] 
       uppercase 
@@ -83,7 +83,8 @@ const hoverBackgroundColor = computed(() => {
     "
     :style="{
       backgroundColor: background,
-      '--hover-bg': hoverBackgroundColor
+      '--hover-bg': hoverBackgroundColor,
+      color: COLORS.color_text_sub
     }"
   >
     {{ text }}

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { COLORS } from '@/constants/colors'
 import ImageCard from './ImageCard.vue'
 
 /**
@@ -56,10 +57,10 @@ const handleClick = () => {
         mt-4 
         text-[16px] md:text-[20px] 
         uppercase 
-        font-poppins font-semibold 
-        text-[#6E645F]
+        font-poppins font-semibold
         text-left
       "
+      :style="{color: COLORS.color_text_main}"
     >
       coiffures {{ categoryTitle }}
     </h3>
@@ -70,9 +71,9 @@ const handleClick = () => {
         mt-2 
         text-[14px] md:text-[18px] 
         font-poppins 
-        text-[#6E645F]
         text-left
       "
+      :style="{color: COLORS.color_text_main}"
     >
       À partir de ${{ startPrice }}
     </p>
