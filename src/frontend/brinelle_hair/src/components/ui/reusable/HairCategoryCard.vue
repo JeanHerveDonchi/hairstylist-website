@@ -71,6 +71,7 @@ const handleClick = () => {
         mt-2 
         text-[14px] md:text-[18px] 
         font-poppins 
+
         text-left
       "
       :style="{color: COLORS.color_text_main}"

@@ -3,35 +3,18 @@ import HeroSection from '@/components/sections/HeroSection.vue';
 import Title from '@/components/ui/reusable/Title.vue';
 import HairCategoryCard from '@/components/ui/reusable/HairCategoryCard.vue';
 import MainButton from '@/components/ui/reusable/MainButton.vue';
-import { CATEGORY_IMAGES } from '@/constants/images';
 import { useRouter } from 'vue-router';
+import { MOCK_CATEGORIES } from '@/constants/categories';
 
 const router = useRouter();
 
-//routes will not work, still to be decided
-const categories = [
-  {
-    id: 'men',
-    imageUrl: CATEGORY_IMAGES.men,
-    title: 'Hommes',
-    price: 25,
-    route: '/prendre-rendez-vous?category=men'
-  },
-  {
-    id: 'women',
-    imageUrl: CATEGORY_IMAGES.women,
-    title: 'Femmes',
-    price: 35,
-    route: '/prendre-rendez-vous?category=women'
-  },
-  {
-    id: 'children',
-    imageUrl: CATEGORY_IMAGES.children,
-    title: 'Enfants',
-    price: 20,
-    route: '/prendre-rendez-vous?category=children'
-  }
-]
+const categoryRoutes = MOCK_CATEGORIES.map(c => ({
+  id: c.id,
+  imageUrl: c.coverImageUrl,
+  title: c.title,
+  price: c.startPrice,
+  route: `/prendre-rendez-vous?category=${c.id}`
+}))
 
 const handleClickToRoute = (route: string) => {
   router.push(route)
@@ -45,7 +28,7 @@ const handleClickToRoute = (route: string) => {
     <section class="py-16 px-6">
       <div class="max-w-[1400px] mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-          <HairCategoryCard v-for="category in categories" :key="category.id" :imageUrl="category.imageUrl"
+          <HairCategoryCard v-for="category in categoryRoutes" :key="category.id" :imageUrl="category.imageUrl"
             :categoryTitle="category.title" :startPrice="category.price" :size="350"
             @click="handleClickToRoute(category.route)" />
         </div>

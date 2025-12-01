@@ -1,7 +1,9 @@
+import type { Category } from "./category.types"
+
 export interface HairStyle {
     id: string,
     name: string
-    category: HairstyleCategory,
+    category: Category | undefined,
     type: HairstyleType,
     price: number
     duration: number // in minutes
@@ -10,11 +12,7 @@ export interface HairStyle {
     available: boolean
 }
 
-export enum HairstyleCategory {
-  Men = 'men',
-  Women = 'women',
-  Children = 'children'
-}
+
 
 export enum HairstyleType {
   Curls = 'curls',
