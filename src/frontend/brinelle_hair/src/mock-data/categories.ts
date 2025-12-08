@@ -1,5 +1,5 @@
 import { HairstyleCategoryName, type Category } from "@/types/category.types";
-import { CATEGORY_IMAGES } from "./images";
+import { CATEGORY_IMAGES } from "../constants/images";
 
 export const MOCK_CATEGORIES: Category[] = [
   {

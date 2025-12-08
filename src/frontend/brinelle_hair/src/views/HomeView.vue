@@ -4,7 +4,7 @@ import Title from '@/components/ui/reusable/Title.vue';
 import HairCategoryCard from '@/components/ui/reusable/HairCategoryCard.vue';
 import MainButton from '@/components/ui/reusable/MainButton.vue';
 import { useRouter } from 'vue-router';
-import { MOCK_CATEGORIES } from '@/constants/categories';
+import { MOCK_CATEGORIES } from '@/mock-data/categories';
 
 const router = useRouter();
 

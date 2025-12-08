@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { MOCK_HAIRSTYLES } from '@/constants/hairstyles'
+import { MOCK_HAIRSTYLES } from '@/mock-data/hairstyles'
 import Title from '@/components/ui/reusable/Title.vue'
 import HairStyleList from '@/components/ui/reusable/HairStyleList.vue'
 const router = useRouter()
