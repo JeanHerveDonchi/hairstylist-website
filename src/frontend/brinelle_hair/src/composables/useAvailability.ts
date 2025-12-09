@@ -6,10 +6,10 @@
 
 import { ref, computed } from 'vue'
 
-import * as slotCalculations from '@/methods/slotCalculations/'
+import * as slotCalculations from '@/utils/slot-calculations'
 
 import type { TimeSlot } from '@/types/booking.types'
-import { formatDate } from '@/methods/validations/formatDate'
+import { formatDate } from '@/utils/booking/validations/formatDate'
 
 export function useAvailability() {
 

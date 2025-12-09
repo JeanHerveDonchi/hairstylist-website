@@ -5,9 +5,9 @@
  */
 
 import { VALIDATION_PATTERNS } from '@/constants/business-rules/business-rules'
-import validateEmail from '@/methods/validations/validateEmail'
-import validateName from '@/methods/validations/validateName'
-import validatePhone from '@/methods/validations/validatePhone'
+import validateEmail from '@/utils/user/validations/validateEmail'
+import validateName from '@/utils/user/validations/validateName'
+import validatePhone from '@/utils/user/validations/validatePhone'
 import type { UserInfo, ValidationResult } from '@/types/booking.types'
 
 export function useBookingValidation() {
@@ -17,10 +17,10 @@ export function useBookingValidation() {
   const validateUserInfo = (userInfo: Partial<UserInfo>): ValidationResult => {
     const errors: Record<string, string> = {}
     
-    const firstNameError = validateName(userInfo.firstName || '', 'first name')
+    const firstNameError = validateName(userInfo.firstName || '', 'prénom')
     if (firstNameError) errors.firstName = firstNameError
     
-    const lastNameError = validateName(userInfo.lastName || '', 'last name')
+    const lastNameError = validateName(userInfo.lastName || '', 'nom de famille')
     if (lastNameError) errors.lastName = lastNameError
     
     const emailError = validateEmail(userInfo.email || '')
@@ -69,9 +69,9 @@ export function useBookingValidation() {
   const getFieldError = (field: string, value: string): string | null => {
     switch (field) {
       case 'firstName':
-        return validateName(value, "first name")
+        return validateName(value, "prénom")
       case 'lastName':
-        return validateName(value, "last name")
+        return validateName(value, "nom de famille")
       case 'email':
         return validateEmail(value)
       case 'phone':

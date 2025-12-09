@@ -1,4 +1,4 @@
-import { checkImageLoad } from '@/methods/validations/checkImageLoad'
+import { checkImageLoad } from '@/utils/validations/checkImageLoad'
 import { ref, onMounted, type Ref } from 'vue'
 
 /**

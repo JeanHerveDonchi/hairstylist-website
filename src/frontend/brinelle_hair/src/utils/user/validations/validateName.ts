@@ -9,15 +9,15 @@ import { VALIDATION_PATTERNS } from "@/constants/business-rules/business-rules"
    */
 const validateName = (name: string, errorMessageName: string): string | null => {
     if (!name || name.trim() === '') {
-        return `Le ${name} est requis`
+        return `Le ${errorMessageName} est requis`
     }
 
     if (name.length < 2) {
-        return `Le ${name} doit contenir au moins 2 caractères`
+        return `Le ${errorMessageName} doit contenir au moins 2 caractères`
     }
 
     if (!VALIDATION_PATTERNS.name.test(name)) {
-        return `Le ${name} contient des caractères invalides`
+        return `Le ${errorMessageName} contient des caractères invalides`
     }
 
     return null

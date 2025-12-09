@@ -16,6 +16,9 @@ import type {
 import { BookingStep as Step } from '@/types/booking.types'
 import { useBookingValidation } from './useBookingValidation'
 import type { HairStyle } from '@/types/hairstyle.types'
+import saveStateToSession from '@/utils/session-storage/saveStateToSession'
+import { loadSession } from '@/utils/session-storage/loadSession'
+import { clearSessionFromKey } from '@/utils/session-storage/clearSession'
 
 const SESSION_STORAGE_KEY = 'booking_session'
 
@@ -172,7 +175,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
       bookingData: bookingData.value
     }
     
-    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state))
+    saveStateToSession(state, SESSION_STORAGE_KEY);
   }
   
   /**
@@ -180,7 +183,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
    * Only restores if hairstyleId matches (otherwise start fresh)
    */
   const restoreFromSession = () => {
-    const saved = sessionStorage.getItem(SESSION_STORAGE_KEY)
+    const saved = loadSession(SESSION_STORAGE_KEY);
     
     if (!saved) {
       return false
@@ -206,7 +209,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
    * Clear session storage
    */
   const clearSession = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY)
+    clearSessionFromKey(SESSION_STORAGE_KEY);
   }
   
   // ==========================================================================

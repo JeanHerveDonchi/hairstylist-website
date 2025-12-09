@@ -14,6 +14,16 @@ const router = createRouter({
       path: '/prendre-rendez-vous',
       name: 'booking',
       component: TakeAppointment
+    },
+    {
+      path: '/confirmer-rendez-vous/:hairstyleId',
+      name: 'confirm-booking',
+      component: () => import('@/views/ConfirmBooking.vue')
+    },
+    {
+      path: '/rendez-vous/confirmation',
+      name: 'booking-success',
+      component: () => import('@/views/BookingSuccess.vue')
     }
   ],
 })
