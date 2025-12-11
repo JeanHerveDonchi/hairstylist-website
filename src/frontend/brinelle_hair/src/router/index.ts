@@ -1,3 +1,5 @@
+import BookingSuccess from '@/views/BookingSuccess.vue'
+import ConfirmBooking from '@/views/ConfirmBooking.vue'
 import HomeView from '@/views/HomeView.vue'
 import TakeAppointment from '@/views/TakeAppointment.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -18,12 +20,12 @@ const router = createRouter({
     {
       path: '/confirmer-rendez-vous/:hairstyleId',
       name: 'confirm-booking',
-      component: () => import('@/views/ConfirmBooking.vue')
+      component: ConfirmBooking
     },
     {
       path: '/rendez-vous/confirmation',
       name: 'booking-success',
-      component: () => import('@/views/BookingSuccess.vue')
+      component: BookingSuccess
     }
   ],
 })

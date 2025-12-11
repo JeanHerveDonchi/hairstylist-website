@@ -5,11 +5,12 @@ import { BookingStep } from '@/types/booking.types'
 import { MOCK_HAIRSTYLES } from '@/mock-data/hairstyles'
 import { useBookingStepper } from '@/composables/useBookingStepper'
 import { useAvailability } from '@/composables/useAvailability'
-import BookingStepper from '../components/ui/fixed/BookingStepper.vue'
+import BookingStepper from '@/components/ui/fixed/BookingStepper.vue'
 import StepUserInfo from '@/components/sections/booking/StepUserInfo.vue'
 import StepDateTime from '@/components/sections/booking/StepDateTime.vue'
 import StepConfirmation from '@/components/sections/booking/StepConfirmation.vue'
 import MainButton from '@/components/ui/reusable/MainButton.vue'
+import Title from '@/components/ui/reusable/Title.vue'
 
 /**
  * Main Booking Page
@@ -84,7 +85,17 @@ const handleConfirm = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 pb-16">
+  <div class="min-h-screen bg-white pb-16">
+    <!-- Page Title -->
+    <Title text="CONFIRMER MON RENDEZ-VOUS" />
+    
+    <!-- Subtitle with Hairstyle Name -->
+    <div class="text-center mb-8 px-6">
+      <p class="text-[24px] font-poppins font-normal text-[#6E645F] capitalize">
+        Confirmer mon rendez-vous pour {{ bookingData.hairstyleName }}
+      </p>
+    </div>
+    
     <!-- Stepper -->
     <BookingStepper 
       :steps="steps" 
@@ -123,6 +134,10 @@ const handleConfirm = async () => {
         <MainButton
           text="Retour"
           background="#6E645F"
+          :borderRadius="15"
+          :fontSize="16"
+          :capitalized="false"
+          :fontBold="false"
           @click="handleBack"
         />
         
@@ -130,6 +145,10 @@ const handleConfirm = async () => {
         <MainButton
           v-if="currentStep < BookingStep.Confirmation"
           text="Continuer"
+          :borderRadius="15"
+          :fontSize="16"
+          :capitalized="false"
+          :fontBold="false"
           :class="{ 'opacity-50 cursor-not-allowed': !canProceed }"
           @click="handleNext"
         />
@@ -137,6 +156,10 @@ const handleConfirm = async () => {
         <MainButton
           v-else
           text="Confirmer"
+          :borderRadius="15"
+          :fontSize="16"
+          :capitalized="false"
+          :fontBold="false"
           @click="handleConfirm"
         />
       </div>

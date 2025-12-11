@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <h2 
-    class="text-[42px] md:text-[64px] uppercase text-center mx-4 my-8 md:mx-8 md:my-16 font-poppins"
+    class="text-[42px] md:text-[64px] uppercase text-center font-poppins px-4 py-8 md:px-8 md:py-16"
     :style="{ color: props.color }"
   >
     {{ props.text }}

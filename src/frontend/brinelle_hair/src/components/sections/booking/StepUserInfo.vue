@@ -89,7 +89,7 @@ watch(formData, () => {
       <div>
         <label 
           for="firstName" 
-          class="block text-sm font-poppins font-medium text-[#6E645F] mb-2"
+          class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Prénom *
         </label>
@@ -124,7 +124,7 @@ watch(formData, () => {
       <div>
         <label 
           for="lastName" 
-          class="block text-sm font-poppins font-medium text-[#6E645F] mb-2"
+          class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Nom de famille *
         </label>
@@ -159,7 +159,7 @@ watch(formData, () => {
       <div>
         <label 
           for="email" 
-          class="block text-sm font-poppins font-medium text-[#6E645F] mb-2"
+          class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Email *
         </label>
@@ -194,7 +194,7 @@ watch(formData, () => {
       <div>
         <label 
           for="phone" 
-          class="block text-sm font-poppins font-medium text-[#6E645F] mb-2"
+          class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Téléphone *
         </label>
