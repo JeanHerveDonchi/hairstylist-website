@@ -42,6 +42,8 @@ const {
   previousStep,
   updateUserInfo,
   updateDateTime,
+  updateDate,
+  updateTime,
   submitBooking
 } = useBookingStepper(hairstyleId, hairstyle.value)
 
@@ -118,6 +120,8 @@ const handleConfirm = async () => {
         :initialTime="bookingData.selectedTime"
         :hairstyleDuration="bookingData.hairstyleDuration"
         @update="updateDateTime"
+        @dateChanged="updateDate"
+        @timeChanged="updateTime"
       />
       
       <!-- Step 3: Confirmation -->
@@ -135,7 +139,7 @@ const handleConfirm = async () => {
           text="Retour"
           background="#6E645F"
           :borderRadius="15"
-          :fontSize="16"
+          :fontSize="20"
           :capitalized="false"
           :fontBold="false"
           @click="handleBack"
@@ -146,7 +150,7 @@ const handleConfirm = async () => {
           v-if="currentStep < BookingStep.Confirmation"
           text="Continuer"
           :borderRadius="15"
-          :fontSize="16"
+          :fontSize="20"
           :capitalized="false"
           :fontBold="false"
           :class="{ 'opacity-50 cursor-not-allowed': !canProceed }"
@@ -157,7 +161,7 @@ const handleConfirm = async () => {
           v-else
           text="Confirmer"
           :borderRadius="15"
-          :fontSize="16"
+          :fontSize="20"
           :capitalized="false"
           :fontBold="false"
           @click="handleConfirm"

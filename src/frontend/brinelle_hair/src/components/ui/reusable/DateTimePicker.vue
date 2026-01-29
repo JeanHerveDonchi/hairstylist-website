@@ -4,8 +4,7 @@ import { useAvailability } from '@/composables/useAvailability'
 import { formatDate } from '@/utils/booking/validations/formatDate'
 import Calendar from './Calendar.vue'
 import TimeSlotPicker from './TimeSlotPicker.vue'
-import type { TimeSlot } from '@/types/booking.types'
-
+import { type TimeSlot } from '@/types/booking.types'
 /**
  * DateTime Picker Component
  * 
@@ -38,7 +37,9 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  update: [date: string, time: string]
+  update: [date: string, time: string],
+  dateChanged: [date: string]
+  timeChanged: [time: string]
 }>()
 
 const { 
@@ -95,8 +96,15 @@ const formattedSelection = computed(() => {
 // ==========================================================================
 
 const handleDateSelected = async (date: string) => {
+  const oldDate = selectedDate.value
   selectedDate.value = date
-  selectedTime.value = null // Reset time when date changes
+  
+  // If date changed, reset time
+  if (oldDate !== date) {
+    selectedTime.value = null
+    // Emit date change immediately (this resets time in parent)
+    emit('dateChanged', date)
+  }
   
   // Load time slots for selected date
   isLoadingSlots.value = true
@@ -111,7 +119,10 @@ const handleDateSelected = async (date: string) => {
 const handleTimeSelected = (time: string) => {
   selectedTime.value = time
   
-  // Emit update when both date and time are selected
+  // Emit time change
+  emit('timeChanged', time)
+  
+  // Emit complete update when both date and time are selected
   if (selectedDate.value && selectedTime.value) {
     emit('update', selectedDate.value, selectedTime.value)
   }

@@ -69,9 +69,12 @@ const calendarDays = computed(() => {
   const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate()
   
   for (let i = prevMonthDays - 1; i >= 0; i--) {
+    const day = daysInPrevMonth - i
+    const dateString = `${prevYear}-${(prevMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+    
     days.push({
-      day: daysInPrevMonth - i,
-      date: formatDate(new Date(prevYear, prevMonth, daysInPrevMonth - i)),
+      day,
+      date: dateString,
       isCurrentMonth: false,
       isDisabled: true
     })
@@ -80,7 +83,8 @@ const calendarDays = computed(() => {
   // Current month days
   for (let day = 1; day <= daysInMonth.value; day++) {
     const date = new Date(currentYear.value, currentMonth.value, day)
-    const dateString = formatDate(date)
+    // Format date properly without timezone issues
+    const dateString = `${currentYear.value}-${(currentMonth.value + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
     const isPast = date < props.minDate
     const isFuture = date > props.maxDate
     const isUnavailable = props.unavailableDates.has(dateString)
@@ -100,10 +104,11 @@ const calendarDays = computed(() => {
   for (let day = 1; day <= remainingDays; day++) {
     const nextMonth = currentMonth.value === 11 ? 0 : currentMonth.value + 1
     const nextYear = currentMonth.value === 11 ? currentYear.value + 1 : currentYear.value
+    const dateString = `${nextYear}-${(nextMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
     
     days.push({
       day,
-      date: formatDate(new Date(nextYear, nextMonth, day)),
+      date: dateString,
       isCurrentMonth: false,
       isDisabled: true
     })

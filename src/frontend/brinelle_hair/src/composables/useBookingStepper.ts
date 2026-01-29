@@ -16,9 +16,6 @@ import type {
 import { BookingStep as Step } from '@/types/booking.types'
 import { useBookingValidation } from './useBookingValidation'
 import type { HairStyle } from '@/types/hairstyle.types'
-import saveStateToSession from '@/utils/session-storage/saveStateToSession'
-import { loadSession } from '@/utils/session-storage/loadSession'
-import { clearSessionFromKey } from '@/utils/session-storage/clearSession'
 
 const SESSION_STORAGE_KEY = 'booking_session'
 
@@ -161,6 +158,23 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     saveToSession()
   }
   
+  /**
+   * Update only date (resets time)
+   */
+  const updateDate = (date: string) => {
+    bookingData.value.selectedDate = date
+    bookingData.value.selectedTime = null // Reset time when date changes
+    saveToSession()
+  }
+  
+  /**
+   * Update only time
+   */
+  const updateTime = (time: string) => {
+    bookingData.value.selectedTime = time
+    saveToSession()
+  }
+  
   // ==========================================================================
   // SESSION PERSISTENCE
   // ==========================================================================
@@ -175,7 +189,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
       bookingData: bookingData.value
     }
     
-    saveStateToSession(state, SESSION_STORAGE_KEY);
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state))
   }
   
   /**
@@ -183,7 +197,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
    * Only restores if hairstyleId matches (otherwise start fresh)
    */
   const restoreFromSession = () => {
-    const saved = loadSession(SESSION_STORAGE_KEY);
+    const saved = sessionStorage.getItem(SESSION_STORAGE_KEY)
     
     if (!saved) {
       return false
@@ -209,7 +223,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
    * Clear session storage
    */
   const clearSession = () => {
-    clearSessionFromKey(SESSION_STORAGE_KEY);
+    sessionStorage.removeItem(SESSION_STORAGE_KEY)
   }
   
   // ==========================================================================
@@ -276,6 +290,8 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     // Data updates
     updateUserInfo,
     updateDateTime,
+    updateDate,
+    updateTime,
     
     // Submission
     submitBooking,

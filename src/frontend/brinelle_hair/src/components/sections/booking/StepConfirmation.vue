@@ -15,7 +15,11 @@ const props = defineProps<Props>()
 
 // Format date for display
 const formatDateDisplay = (dateString: string): string => {
-  const date = new Date(dateString)
+  const [year, month, day] = dateString.split('-').map(Number)
+  if (year === undefined || month === undefined) {
+    throw new Error("undefined date error");
+  }
+  const date = new Date(year, month - 1, day)
   return date.toLocaleDateString('fr-CA', { 
     weekday: 'long', 
     year: 'numeric', 

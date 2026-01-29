@@ -28,6 +28,22 @@ const router = createRouter({
       component: BookingSuccess
     }
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // back/forward button
+    if (savedPosition) {
+      return savedPosition
+    }
+    // hash navigation
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth'
+      }
+    }
+
+    // normal route change
+    return { top: 0 }
+  }
 })
 
 export default router

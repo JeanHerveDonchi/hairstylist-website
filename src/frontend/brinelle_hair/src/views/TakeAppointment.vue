@@ -20,7 +20,7 @@ const filteredHairstyles = computed(() => {
 
 // Handle hairstyle click - navigate to detail page
 const handleHairstyleClick = (id: string) => {
-  router.push(`/hairstyle/${id}`)
+  router.push(`/confirmer-rendez-vous/${id}`)
 }
 </script>
 

@@ -16,11 +16,16 @@ interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  update: [date: string, time: string]
+  update: [date: string, time: string],
+  dateChanged: [date: string],
 }>()
 
 const handleUpdate = (date: string, time: string) => {
   emit('update', date, time)
+};
+
+const handleUpdateDate = (date: string): any => {
+  emit('dateChanged', date)
 }
 </script>
 
@@ -36,6 +41,7 @@ const handleUpdate = (date: string, time: string) => {
       :initialTime="initialTime"
       :hairstyleDuration="hairstyleDuration"
       @update="handleUpdate"
+      @dateChanged="handleUpdateDate"
     />
   </div>
 </template>
