@@ -25,7 +25,7 @@ const handleClickToRoute = (route: string) => {
   <div id="app">
     <HeroSection />
     <Title text="tressez vos cheveux avec soins" />
-    <section class="py-16 px-6">
+    <section id="services" class="scroll-mt-[140px] py-16 px-6">
       <div class="max-w-[1400px] mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           <HairCategoryCard v-for="category in categoryRoutes" :key="category.id" :imageUrl="category.imageUrl"

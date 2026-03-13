@@ -4,7 +4,7 @@ import { SOCIAL_LINKS, POLICY_LINKS, REVIEW_LINKS, INTERNAL_ROUTES } from '@/con
 </script>
 
 <template>
-  <footer class="w-full min-h-[500px] px-6 md:px-12 py-12 md:py-16"
+  <footer id="contactes" class="scroll-mt-[140px] w-full min-h-[500px] px-6 md:px-12 py-12 md:py-16"
   :style="{backgroundColor: COLORS.color_tertiary}">
     <div class="h-full max-w-[1400px] mx-auto">
       <!-- Outer Grid: 2 columns with space-between -->
@@ -108,8 +108,6 @@ import { SOCIAL_LINKS, POLICY_LINKS, REVIEW_LINKS, INTERNAL_ROUTES } from '@/con
             </p>
             <a
               :href="REVIEW_LINKS.leaveReview"
-              target="_blank"
-              rel="noopener noreferrer"
               class="text-[18px] md:text-[20px] hover:opacity-80 transition-opacity inline-block"
               :style="{color: COLORS.color_primary}"
             >

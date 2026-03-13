@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { COLORS } from '@/constants/colors'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 const isMobileMenuOpen = ref(false)
 
 const toggleMobileMenu = () => {
@@ -16,6 +17,20 @@ const scrollToSection = (sectionId: string) => {
     element.scrollIntoView({ behavior: 'smooth' })
   }
   isMobileMenuOpen.value = false
+}
+
+const navigateToServices = async () => {
+  if (route.path === '/') {
+    scrollToSection('services')
+    return
+  }
+
+  isMobileMenuOpen.value = false
+  await router.push({ path: '/', hash: '#services' })
+}
+
+const navigateToContacts = () => {
+  scrollToSection('contactes')
 }
 
 const navigateToBooking = () => {
@@ -36,14 +51,14 @@ const navigateToHome = () => {
       <!-- Left: Services & Contactes (Desktop) -->
       <div class="hidden md:flex items-center gap-8">
         <button
-          @click="scrollToSection('services')"
+          @click="navigateToServices"
           class="text-[16px] font-poppins uppercase tracking-wide  hover:opacity-80 transition-opacity"
           :style="{color: COLORS.color_text_sub}"
         >
           SERVICES
         </button>
         <button
-          @click="scrollToSection('contactes')"
+          @click="navigateToContacts"
           class="text-[16px] font-poppins uppercase tracking-wide  hover:opacity-80 transition-opacity"
           :style="{color: COLORS.color_text_sub}"
         >
@@ -105,14 +120,14 @@ const navigateToHome = () => {
     >
       <div class="flex flex-col gap-4">
         <button
-          @click="scrollToSection('services')"
+          @click="navigateToServices"
           class="text-[14px] font-poppins uppercase  text-left py-2"
           :style="{color: COLORS.color_text_sub}"
         >
           SERVICES
         </button>
         <button
-          @click="scrollToSection('contactes')"
+          @click="navigateToContacts"
           class="text-[14px] font-poppins uppercase  text-left py-2"
           :style="{color: COLORS.color_text_sub}"
         >
