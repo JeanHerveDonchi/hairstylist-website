@@ -9,7 +9,7 @@ This template should help get you started developing with Vue 3 in Vite.
 ## Recommended Browser Setup
 
 - Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
   - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
 - Firefox:
   - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
@@ -28,6 +28,20 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 ```sh
 npm install
 ```
+
+## EmailJS Configuration
+
+Create a `.env` file from `.env.example` and set:
+
+```sh
+VITE_EMAILJS_SERVICE_ID=
+VITE_EMAILJS_PUBLIC_KEY=
+VITE_EMAILJS_CUSTOMER_TEMPLATE_ID=
+VITE_EMAILJS_HAIRSTYLIST_TEMPLATE_ID=
+```
+
+EmailJS template parameters used by the booking flow:
+`to_email`, `to_name`, `recipient_type`, `reply_to`, `customer_first_name`, `customer_last_name`, `customer_name`, `customer_email`, `customer_phone`, `hairstyle_name`, `appointment_date`, `appointment_time`, `appointment_duration`, `appointment_price`, `appointment_taxes`, `appointment_total`, `hairstylist_email`, `hairstylist_phone`.
 
 ### Compile and Hot-Reload for Development
 

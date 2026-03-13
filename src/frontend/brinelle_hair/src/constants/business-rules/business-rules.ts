@@ -26,6 +26,14 @@ export const DATE_CONSTRAINTS = {
 } as const
 
 // ============================================================================
+// APPOINTMENT PRICING
+// ============================================================================
+
+export const APPOINTMENT_PRICING = {
+  nbTaxRate: 0.15,
+} as const
+
+// ============================================================================
 // VALIDATION PATTERNS
 // ============================================================================
 
@@ -39,4 +47,3 @@ export const VALIDATION_PATTERNS = {
   // Name: letters, spaces, hyphens, apostrophes only
   name: /^[a-zA-ZÀ-ÿ\s'-]+$/
 } as const
-

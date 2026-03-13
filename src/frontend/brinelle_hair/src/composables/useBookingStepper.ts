@@ -1,35 +1,30 @@
 /**
  * Booking Stepper Composable
- * 
+ *
  * Core state management for the booking flow
  * Handles stepper navigation, validation, and session persistence
  */
 
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import type { 
-  BookingStep, 
-  BookingData, 
-  UserInfo,
-  BookingStepConfig 
-} from '@/types/booking.types'
+import type { BookingStep, BookingData, UserInfo, BookingStepConfig } from '@/types/booking.types'
 import { BookingStep as Step } from '@/types/booking.types'
 import { useBookingValidation } from './useBookingValidation'
 import type { HairStyle } from '@/types/hairstyle.types'
+import { sendBookingConfirmationEmails } from '@/services/email.service'
 
 const SESSION_STORAGE_KEY = 'booking_session'
 
 export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
-  
   const router = useRouter()
   const { validateUserInfo, validateDateTime } = useBookingValidation()
-  
+
   // ==========================================================================
   // STATE
   // ==========================================================================
-  
+
   const currentStep = ref<BookingStep>(Step.UserInfo)
-  
+
   const bookingData = ref<BookingData>({
     hairstyleId: hairstyleId,
     hairstyleName: hairstyle.name,
@@ -37,68 +32,69 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     hairstylePrice: hairstyle.price,
     userInfo: null,
     selectedDate: null,
-    selectedTime: null
+    selectedTime: null,
   })
-  
+
   // ==========================================================================
   // STEP CONFIGURATION
   // ==========================================================================
-  
+
   const steps = computed<BookingStepConfig[]>(() => [
     {
       step: Step.UserInfo,
       title: 'Entrer mes informations',
-      isComplete: isStepComplete(Step.UserInfo)
+      isComplete: isStepComplete(Step.UserInfo),
     },
     {
       step: Step.DateTime,
       title: 'Choisir mon horaire',
-      isComplete: isStepComplete(Step.DateTime)
+      isComplete: isStepComplete(Step.DateTime),
     },
     {
       step: Step.Confirmation,
       title: 'Confirmer mon rdv',
-      isComplete: isStepComplete(Step.Confirmation)
-    }
+      isComplete: isStepComplete(Step.Confirmation),
+    },
   ])
-  
+
   // ==========================================================================
   // STEP VALIDATION
   // ==========================================================================
-  
+
   /**
    * Check if a specific step is complete
    */
   function isStepComplete(step: BookingStep): boolean {
     switch (step) {
       case Step.UserInfo:
-        return bookingData.value.userInfo !== null &&
-               validateUserInfo(bookingData.value.userInfo).isValid
-      
+        return (
+          bookingData.value.userInfo !== null &&
+          validateUserInfo(bookingData.value.userInfo).isValid
+        )
+
       case Step.DateTime:
-        return bookingData.value.selectedDate !== null &&
-               bookingData.value.selectedTime !== null
-      
+        return bookingData.value.selectedDate !== null && bookingData.value.selectedTime !== null
+
       case Step.Confirmation:
         // Confirmation step is always complete if reached
         return currentStep.value === Step.Confirmation
-      
+
       default:
         return false
     }
   }
-  
+
   /**
    * Check if current step is complete (for "Continuer" button)
    */
   const canProceed = computed(() => {
     return isStepComplete(currentStep.value)
   })
-  
+
   // ==========================================================================
   // NAVIGATION
   // ==========================================================================
-  
+
   /**
    * Go to next step
    */
@@ -106,13 +102,13 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     if (!canProceed.value) {
       return // Cannot proceed if current step not complete
     }
-    
+
     if (currentStep.value < Step.Confirmation) {
       currentStep.value++
       saveToSession()
     }
   }
-  
+
   /**
    * Go to previous step
    */
@@ -125,7 +121,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
       router.back()
     }
   }
-  
+
   /**
    * Go to specific step (only if allowed)
    */
@@ -136,11 +132,11 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
       saveToSession()
     }
   }
-  
+
   // ==========================================================================
   // DATA UPDATES
   // ==========================================================================
-  
+
   /**
    * Update user information
    */
@@ -148,7 +144,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     bookingData.value.userInfo = userInfo
     saveToSession()
   }
-  
+
   /**
    * Update date and time selection
    */
@@ -157,7 +153,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     bookingData.value.selectedTime = time
     saveToSession()
   }
-  
+
   /**
    * Update only date (resets time)
    */
@@ -166,7 +162,7 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     bookingData.value.selectedTime = null // Reset time when date changes
     saveToSession()
   }
-  
+
   /**
    * Update only time
    */
@@ -174,11 +170,11 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     bookingData.value.selectedTime = time
     saveToSession()
   }
-  
+
   // ==========================================================================
   // SESSION PERSISTENCE
   // ==========================================================================
-  
+
   /**
    * Save booking state to sessionStorage
    */
@@ -186,26 +182,26 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     const state = {
       hairstyleId: bookingData.value.hairstyleId,
       currentStep: currentStep.value,
-      bookingData: bookingData.value
+      bookingData: bookingData.value,
     }
-    
+
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state))
   }
-  
+
   /**
    * Restore booking state from sessionStorage
    * Only restores if hairstyleId matches (otherwise start fresh)
    */
   const restoreFromSession = () => {
     const saved = sessionStorage.getItem(SESSION_STORAGE_KEY)
-    
+
     if (!saved) {
       return false
     }
-    
+
     try {
       const state = JSON.parse(saved)
-      
+
       // Only restore if same hairstyle
       if (state.hairstyleId === hairstyleId) {
         currentStep.value = state.currentStep
@@ -215,21 +211,21 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     } catch (error) {
       console.error('Failed to restore session:', error)
     }
-    
+
     return false
   }
-  
+
   /**
    * Clear session storage
    */
   const clearSession = () => {
     sessionStorage.removeItem(SESSION_STORAGE_KEY)
   }
-  
+
   // ==========================================================================
   // FINAL SUBMISSION
   // ==========================================================================
-  
+
   /**
    * Submit booking (final step)
    */
@@ -237,66 +233,77 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     if (!canProceed.value) {
       return { success: false, message: 'Informations incomplètes' }
     }
-    
-    // TODO: In real app, send to backend API
-    // For MVP, just simulate success
-    
+
+    if (
+      !bookingData.value.userInfo ||
+      !bookingData.value.selectedDate ||
+      !bookingData.value.selectedTime
+    ) {
+      return { success: false, message: 'Informations incomplètes pour confirmer le rendez-vous.' }
+    }
+
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
+      const emailResult = await sendBookingConfirmationEmails(bookingData.value)
+      if (!emailResult.success) {
+        return {
+          success: false,
+          message: emailResult.message || "Échec de l'envoi des emails de confirmation.",
+        }
+      }
+
       // Clear session after successful booking
       clearSession()
-      
+
       // Navigate to success page
-      router.push('/rendez-vous/confirmation')
-      
+      await router.push('/rendez-vous/confirmation')
+
       return { success: true }
     } catch (error) {
-      return { 
-        success: false, 
-        message: 'Une erreur est survenue. Veuillez réessayer.' 
+      console.error('Booking submission failed:', error)
+      return {
+        success: false,
+        message: 'Une erreur est survenue. Veuillez réessayer.',
       }
     }
   }
-  
+
   // ==========================================================================
   // LIFECYCLE
   // ==========================================================================
-  
+
   onMounted(() => {
     // Try to restore session on mount
     restoreFromSession()
   })
-  
+
   // Auto-save on data changes
   watch(bookingData, saveToSession, { deep: true })
-  
+
   return {
     // State
     currentStep,
     bookingData,
     steps,
     canProceed,
-    
+
     // Validation
     isStepComplete,
-    
+
     // Navigation
     nextStep,
     previousStep,
     goToStep,
-    
+
     // Data updates
     updateUserInfo,
     updateDateTime,
     updateDate,
     updateTime,
-    
+
     // Submission
     submitBooking,
-    
+
     // Session management
-    clearSession
+    clearSession,
   }
 }

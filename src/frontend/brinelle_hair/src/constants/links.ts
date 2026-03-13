@@ -23,3 +23,9 @@ export const REVIEW_LINKS = {
 export const INTERNAL_ROUTES = {
   gallery: '/galerie', // Gallery page route (not created yet)
 } as const
+
+export const HAIRSTYLIST = {
+  name: 'Brinelle',
+  email: 'donchiherve1@gmail.com',
+  phone: '506-899-7052',
+} as const
