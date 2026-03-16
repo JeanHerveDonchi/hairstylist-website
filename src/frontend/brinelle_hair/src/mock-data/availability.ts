@@ -1,66 +1,80 @@
 /**
  * Mock Availability Data
- * 
- * Simulates database of unavailable slots
+ *
+ * Simulates database-backed availability configuration
  * In production, this data comes from backend API
  */
 
-import { type UnavailableSlot, UnavailabilityReason } from '@/types/booking.types'
+import { BlockedReason, type BlockedEvent, type BusinessHours } from '@/types/booking.types'
 
 // ============================================================================
-// MOCK UNAVAILABLE SLOTS
+// MOCK BUSINESS HOURS
 // ============================================================================
 
 /**
- * Simulates unavailable_slots table
- * Includes both admin blocks and existing bookings
+ * Salon is open Sunday(0)-Saturday(6), 8:00 AM to 7:00 PM
  */
-export const MOCK_UNAVAILABLE_SLOTS: UnavailableSlot[] = [
-  // ===== ADMIN BLOCKED DATES =====
-  
-  // Christmas Day - entire day blocked
-  { date: '2025-12-25', timeSlot: '08:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '09:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '10:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '11:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '12:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '13:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '14:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '15:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '16:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '17:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '18:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2025-12-25', timeSlot: '19:00', reason: UnavailabilityReason.AdminBlocked },
-  
-  // New Year's Day - entire day blocked
-  { date: '2026-01-01', timeSlot: '08:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '09:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '10:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '11:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '12:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '13:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '14:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '15:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '16:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '17:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '18:00', reason: UnavailabilityReason.AdminBlocked },
-  { date: '2026-01-01', timeSlot: '19:00', reason: UnavailabilityReason.AdminBlocked },
-  
-  // Partial day block - Dec 20, 2pm personal appointment
-  { date: '2025-12-20', timeSlot: '14:00', reason: UnavailabilityReason.AdminBlocked },
-  
-  // ===== EXISTING BOOKINGS =====
-  
-  // Dec 15 - 10am booking (3-hour service)
-  { date: '2025-12-15', timeSlot: '10:00', reason: UnavailabilityReason.Booked, bookingId: 'booking_001' },
-  { date: '2025-12-15', timeSlot: '11:00', reason: UnavailabilityReason.Booked, bookingId: 'booking_001' },
-  { date: '2025-12-15', timeSlot: '12:00', reason: UnavailabilityReason.Booked, bookingId: 'booking_001' },
-  
-  // Dec 18 - 2pm booking (1-hour service)
-  { date: '2025-12-18', timeSlot: '14:00', reason: UnavailabilityReason.Booked, bookingId: 'booking_002' },
-  
-  // Dec 22 - 9am booking (2-hour service)
-  { date: '2025-12-22', timeSlot: '09:00', reason: UnavailabilityReason.Booked, bookingId: 'booking_003' },
-  { date: '2025-12-22', timeSlot: '10:00', reason: UnavailabilityReason.Booked, bookingId: 'booking_003' },
+export const MOCK_BUSINESS_HOURS: BusinessHours[] = [
+  { dayOfWeek: 0, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 1, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 2, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 3, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 4, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 5, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 6, openTime: '08:00', closeTime: '20:00' },
 ]
 
+// ============================================================================
+// MOCK BLOCKED EVENTS
+// ============================================================================
+
+/**
+ * Blocked ranges are expanded into hourly slots by the availability engine.
+ */
+export const MOCK_BLOCKED_EVENTS: BlockedEvent[] = [
+  {
+    id: 'holiday_1',
+    date: '2025-12-25',
+    startTime: '08:00',
+    endTime: '19:00',
+    reason: BlockedReason.Holiday
+  },
+  {
+    id: 'holiday_2',
+    date: '2026-01-01',
+    startTime: '08:00',
+    endTime: '19:00',
+    reason: BlockedReason.Holiday
+  },
+  {
+    id: 'personal_1',
+    date: '2025-12-20',
+    startTime: '14:00',
+    endTime: '15:00',
+    reason: BlockedReason.Personal
+  },
+  {
+    id: 'booking_001',
+    date: '2025-12-15',
+    startTime: '10:00',
+    endTime: '13:00',
+    reason: BlockedReason.Booking,
+    bookingId: 'booking_001'
+  },
+  {
+    id: 'booking_002',
+    date: '2025-12-18',
+    startTime: '14:00',
+    endTime: '15:00',
+    reason: BlockedReason.Booking,
+    bookingId: 'booking_002'
+  },
+  {
+    id: 'booking_003',
+    date: '2025-12-22',
+    startTime: '09:00',
+    endTime: '11:00',
+    reason: BlockedReason.Booking,
+    bookingId: 'booking_003'
+  }
+]

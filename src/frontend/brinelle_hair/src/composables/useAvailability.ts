@@ -4,7 +4,7 @@
  * Handles all slot availability calculations and validation
  */
 
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 import * as slotCalculations from '@/utils/slot-calculations'
 
@@ -27,18 +27,13 @@ export function useAvailability() {
      * Get all available time slots for a specific date
      */
     const getAvailableSlotsForDate = (date: string): TimeSlot[] => {
-        const allSlots = slotCalculations.generateBusinessHourSlots()
-        const defaultUnavailable = slotCalculations.getDefaultUnavailableSlots()
-        const dateUnavailable = slotCalculations.getUnavailableSlotsForDate(date)
+        const allSlots = slotCalculations.generateDailySlots(date)
+        const blockedSlots = new Set(slotCalculations.getBlockedSlotsForDate(date))
 
-        return allSlots.map((time: any) => {
-            // Check if slot is unavailable
-            const isDefaultUnavailable = defaultUnavailable.includes(time)
-            const isDateUnavailable = dateUnavailable.some((slot: { timeSlot: any }) => slot.timeSlot === time)
-
+        return allSlots.map((time) => {
             return {
                 time,
-                available: !isDefaultUnavailable && !isDateUnavailable
+                available: !blockedSlots.has(time)
             }
         })
     }
@@ -98,7 +93,7 @@ export function useAvailability() {
         await new Promise(resolve => setTimeout(resolve, 100))
 
         // In real app: fetch from backend
-        // For now, we use MOCK_UNAVAILABLE_SLOTS which is already loaded
+        // For now, blocked events are already loaded in memory
         slotCalculations.getUnavailableSlotsForMonth(year, month)
 
         loadedMonths.value.add(monthKey)

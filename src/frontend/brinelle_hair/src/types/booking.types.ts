@@ -46,21 +46,32 @@ export interface DateTimeSelection {
 }
 
 // ============================================================================
-// UNAVAILABILITY
+// AVAILABILITY
 // ============================================================================
 
-export enum UnavailabilityReason {
-  AdminBlocked = 'admin_blocked',
-  Booked = 'booked',
-  DefaultBusinessHours = 'default_business_hours'
+export interface BusinessHours {
+  dayOfWeek: number                 // 0 = Sunday, 6 = Saturday
+  openTime: string                  // 'HH:00'
+  closeTime: string                 // 'HH:00'
 }
 
-export interface UnavailableSlot {
-  date: string                      // 'YYYY-MM-DD'
-  timeSlot: string                  // 'HH:00'
-  reason: UnavailabilityReason
-  bookingId?: string                // Only if reason='booked'
+export enum BlockedReason {
+  Booking = 'booking',
+  AdminBlocked = 'admin_blocked',
+  Holiday = 'holiday',
+  Personal = 'personal'
 }
+
+export interface BlockedEvent {
+  id: string
+  date: string                      // 'YYYY-MM-DD'
+  startTime: string                 // 'HH:00'
+  endTime: string                   // 'HH:00'
+  reason: BlockedReason
+  bookingId?: string
+}
+
+export type UnavailableSlotsByDate = Record<string, string[]>
 
 // ============================================================================
 // BOOKING DATA
