@@ -1,5 +1,4 @@
-import { MOCK_BLOCKED_EVENTS, MOCK_BUSINESS_HOURS } from '@/mock-data/availability'
-import type { BusinessHours, UnavailableSlotsByDate } from '@/types/booking.types'
+import type { BusinessHours } from '@/types/booking.types'
 
 const HOURS_IN_DAY = 24
 
@@ -29,7 +28,7 @@ function formatHour(hour: number): string {
   return `${hour.toString().padStart(2, '0')}:00`
 }
 
-function generateHourlySlots(startTime: string, endTime: string): string[] {
+export function generateHourlySlots(startTime: string, endTime: string): string[] {
   const startHour = parseHour(startTime)
   const endHour = parseHour(endTime)
 
@@ -46,29 +45,7 @@ function generateHourlySlots(startTime: string, endTime: string): string[] {
   return slots
 }
 
-function getBusinessHoursForDate(date: string): BusinessHours | undefined {
-  const dayOfWeek = parseDate(date).getDay()
-  return MOCK_BUSINESS_HOURS.find((hours) => hours.dayOfWeek === dayOfWeek)
-}
-
-function getDefaultBusinessHours(): BusinessHours | undefined {
-  return MOCK_BUSINESS_HOURS.find((hours) => hours.dayOfWeek === 1) ?? MOCK_BUSINESS_HOURS[0]
-}
-
-function generateMonthDates(year: number, month: number): string[] {
-  const daysInMonth = new Date(year, month, 0).getDate()
-  const dates: string[] = []
-
-  for (let day = 1; day <= daysInMonth; day++) {
-    dates.push(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`)
-  }
-
-  return dates
-}
-
-export function generateDailySlots(date: string): string[] {
-  const businessHours = getBusinessHoursForDate(date)
-
+export function generateDailySlots(businessHours?: BusinessHours): string[] {
   if (!businessHours) {
     return []
   }
@@ -76,14 +53,10 @@ export function generateDailySlots(date: string): string[] {
   return generateHourlySlots(businessHours.openTime, businessHours.closeTime)
 }
 
-export function getBlockedSlotsForDate(date: string): string[] {
+export function getUnavailableSlotsFromBlockedEvents(blockedEvents: { startTime: string; endTime: string; date?: string }[]): string[] {
   const blockedSlots = new Set<string>()
 
-  for (const event of MOCK_BLOCKED_EVENTS) {
-    if (event.date !== date) {
-      continue
-    }
-
+  for (const event of blockedEvents) {
     for (const slot of generateHourlySlots(event.startTime, event.endTime)) {
       blockedSlots.add(slot)
     }
@@ -92,16 +65,16 @@ export function getBlockedSlotsForDate(date: string): string[] {
   return [...blockedSlots].sort((left, right) => parseHour(left) - parseHour(right))
 }
 
-export function isSlotUnavailable(date: string, timeSlot: string): boolean {
-  const blockedSlots = getBlockedSlotsForDate(date)
+export function isSlotUnavailable(date: string, timeSlot: string, blockedSlots: string[]): boolean {
   return blockedSlots.includes(timeSlot)
 }
 
-export function getUnavailableSlotsForMonth(year: number, month: number): UnavailableSlotsByDate {
-  const unavailableSlotsByDate: UnavailableSlotsByDate = {}
+export function getUnavailableSlotsForMonthFromBlocked(year: number, month: number, blockedByDate: Record<string, string[] | undefined>): Record<string, string[]> {
+  const unavailableSlotsByDate: Record<string, string[]> = {}
 
-  for (const date of generateMonthDates(year, month)) {
-    const blockedSlots = getBlockedSlotsForDate(date)
+  for (const date of Object.keys(blockedByDate)) {
+    if (!date.startsWith(`${year}-${month.toString().padStart(2, '0')}`)) continue
+    const blockedSlots = blockedByDate[date] ?? []
 
     if (blockedSlots.length > 0) {
       unavailableSlotsByDate[date] = blockedSlots
@@ -111,13 +84,7 @@ export function getUnavailableSlotsForMonth(year: number, month: number): Unavai
   return unavailableSlotsByDate
 }
 
-export function generateBusinessHourSlots(date?: string): string[] {
-  if (date) {
-    return generateDailySlots(date)
-  }
-
-  const businessHours = getDefaultBusinessHours()
-
+export function generateBusinessHourSlots(businessHours?: BusinessHours): string[] {
   if (!businessHours) {
     return []
   }
@@ -125,8 +92,8 @@ export function generateBusinessHourSlots(date?: string): string[] {
   return generateHourlySlots(businessHours.openTime, businessHours.closeTime)
 }
 
-export function getDefaultUnavailableSlots(date?: string): string[] {
-  const availableSlots = new Set(generateBusinessHourSlots(date))
+export function getDefaultUnavailableSlots(businessHours?: BusinessHours): string[] {
+  const availableSlots = new Set(generateBusinessHourSlots(businessHours))
   const unavailableSlots: string[] = []
 
   for (let hour = 0; hour < HOURS_IN_DAY; hour++) {
@@ -138,8 +105,4 @@ export function getDefaultUnavailableSlots(date?: string): string[] {
   }
 
   return unavailableSlots
-}
-
-export function getUnavailableSlotsForDate(date: string): string[] {
-  return getBlockedSlotsForDate(date)
 }

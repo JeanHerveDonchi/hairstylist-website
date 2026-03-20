@@ -7,7 +7,7 @@ import TimeSlotPicker from './TimeSlotPicker.vue'
 import { type TimeSlot } from '@/types/booking.types'
 /**
  * DateTime Picker Component
- * 
+ *
  * Complete reusable date and time selection with:
  * - Calendar view (month navigation)
  * - Time slot selection
@@ -42,10 +42,10 @@ const emit = defineEmits<{
   timeChanged: [time: string]
 }>()
 
-const { 
-  getAvailableSlotsForDate, 
-  getAvailableDatesForMonth, 
-  loadMonthAvailability 
+const {
+  getAvailableSlotsForDate,
+  getAvailableDatesForMonth,
+  loadMonthAvailability
 } = useAvailability()
 
 // ==========================================================================
@@ -66,28 +66,28 @@ const currentYear = ref(new Date().getFullYear())
 
 const formattedSelection = computed(() => {
   if (!selectedDate.value) return null
-  
+
   // Parse date as local time (not UTC)
   const parts = selectedDate.value.split('-')
   const year = Number(parts[0]) || new Date().getFullYear()
   const month = Number(parts[1]) || 1
   const day = Number(parts[2]) || 1
   const date = new Date(year, month - 1, day)
-  
-  const dateStr = date.toLocaleDateString('fr-CA', { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+
+  const dateStr = date.toLocaleDateString('fr-CA', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   })
-  
+
   if (!selectedTime.value) return dateStr
-  
+
   // Provide a default value for hour to avoid possible 'undefined'
   const [hour = 0] = selectedTime.value.split(':').map(Number)
   const period = hour >= 12 ? 'PM' : 'AM'
   const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
-  
+
   return `${dateStr} à ${displayHour}:00 ${period}`
 })
 
@@ -98,30 +98,31 @@ const formattedSelection = computed(() => {
 const handleDateSelected = async (date: string) => {
   const oldDate = selectedDate.value
   selectedDate.value = date
-  
+
   // If date changed, reset time
   if (oldDate !== date) {
     selectedTime.value = null
     // Emit date change immediately (this resets time in parent)
     emit('dateChanged', date)
   }
-  
+
   // Load time slots for selected date
   isLoadingSlots.value = true
-  
+
   // Simulate loading (in real app, this might be an API call)
   await new Promise(resolve => setTimeout(resolve, 300))
-  
-  availableTimeSlots.value = getAvailableSlotsForDate(date)
+
+  const durationHours = Math.ceil((props.hairstyleDuration ?? 60) / 60)
+  availableTimeSlots.value = await getAvailableSlotsForDate(date, undefined, durationHours)
   isLoadingSlots.value = false
 }
 
 const handleTimeSelected = (time: string) => {
   selectedTime.value = time
-  
+
   // Emit time change
   emit('timeChanged', time)
-  
+
   // Emit complete update when both date and time are selected
   if (selectedDate.value && selectedTime.value) {
     emit('update', selectedDate.value, selectedTime.value)
@@ -131,22 +132,23 @@ const handleTimeSelected = (time: string) => {
 const handleMonthChanged = async (year: number, month: number) => {
   currentYear.value = year
   currentMonth.value = month
-  
+
   // Load availability for new month
-  await loadMonthAvailability(year, month)
-  
+  const durationHours = Math.ceil((props.hairstyleDuration ?? 60) / 60)
+  await loadMonthAvailability(year, month, undefined)
+
   // Update unavailable dates set
-  const allDates = getAvailableDatesForMonth(year, month)
-  
+  const allDates = await getAvailableDatesForMonth(year, month, undefined, durationHours)
+
   // Get all dates in month
   const daysInMonth = new Date(year, month, 0).getDate()
   const allDatesInMonth = new Set<string>()
-  
+
   for (let day = 1; day <= daysInMonth; day++) {
     const date = formatDate(new Date(year, month - 1, day))
     allDatesInMonth.add(date)
   }
-  
+
   // Unavailable = all dates - available dates
   unavailableDates.value = new Set(
     [...allDatesInMonth].filter(date => !allDates.has(date))
@@ -160,10 +162,11 @@ const handleMonthChanged = async (year: number, month: number) => {
 onMounted(async () => {
   // Load current month on mount
   await handleMonthChanged(currentYear.value, currentMonth.value)
-  
+
   // If initial date provided, load its time slots
   if (selectedDate.value) {
-    availableTimeSlots.value = getAvailableSlotsForDate(selectedDate.value)
+    const durationHours = Math.ceil((props.hairstyleDuration ?? 60) / 60)
+    availableTimeSlots.value = await getAvailableSlotsForDate(selectedDate.value, undefined, durationHours)
   }
 })
 </script>
@@ -181,7 +184,7 @@ onMounted(async () => {
         @dateSelected="handleDateSelected"
         @monthChanged="handleMonthChanged"
       />
-      
+
       <!-- Time Slots (Only show when date selected) -->
       <TimeSlotPicker
         v-if="selectedDate"
@@ -190,7 +193,7 @@ onMounted(async () => {
         :isLoading="isLoadingSlots"
         @timeSelected="handleTimeSelected"
       />
-      
+
       <!-- Placeholder when no date selected -->
       <div
         v-else
@@ -201,7 +204,7 @@ onMounted(async () => {
         </p>
       </div>
     </div>
-    
+
     <!-- Selected DateTime Display -->
     <div
       v-if="formattedSelection"
