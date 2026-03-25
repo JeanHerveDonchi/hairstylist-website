@@ -5,19 +5,22 @@
  * Handles stepper navigation, validation, and session persistence
  */
 
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, type Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { BookingStep, BookingData, UserInfo, BookingStepConfig } from '@/types/booking.types'
 import { BookingStep as Step } from '@/types/booking.types'
 import { useBookingValidation } from './useBookingValidation'
 import type { HairStyle } from '@/types/hairstyle.types'
 import { sendBookingConfirmationEmails } from '@/services/email.service'
+import { createBooking } from '@/services/booking.service'
 
 const SESSION_STORAGE_KEY = 'booking_session'
 
-export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
+export function useBookingStepper(hairstyleId: string, hairstyle: Ref<HairStyle | null>) {
   const router = useRouter()
-  const { validateUserInfo, validateDateTime } = useBookingValidation()
+  const { validateUserInfo } = useBookingValidation()
+
+  const initialHairstyle = hairstyle.value
 
   // ==========================================================================
   // STATE
@@ -27,9 +30,9 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
 
   const bookingData = ref<BookingData>({
     hairstyleId: hairstyleId,
-    hairstyleName: hairstyle.name,
-    hairstyleDuration: hairstyle.duration,
-    hairstylePrice: hairstyle.price,
+    hairstyleName: initialHairstyle?.name ?? '',
+    hairstyleDuration: initialHairstyle?.duration ?? 0,
+    hairstylePrice: initialHairstyle?.price ?? 0,
     userInfo: null,
     selectedDate: null,
     selectedTime: null,
@@ -242,9 +245,33 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
       return { success: false, message: 'Informations incomplètes pour confirmer le rendez-vous.' }
     }
 
+    // Build booking input for service
+    const bookingInput = {
+      hairstyleId: bookingData.value.hairstyleId,
+      customer: {
+        firstName: bookingData.value.userInfo.firstName,
+        lastName: bookingData.value.userInfo.lastName,
+        email: bookingData.value.userInfo.email,
+        phone: bookingData.value.userInfo.phone,
+      },
+      startDatetime: `${bookingData.value.selectedDate}T${bookingData.value.selectedTime}:00.000Z`,
+      durationHours: bookingData.value.hairstyleDuration / 60, // convert minutes to hours
+    }
+
+    console.log(bookingData);
+
     try {
+      // Call booking RPC via service
+
+      const bookingResult = await createBooking(bookingInput as any)
+      console.log('[submitBooking] bookingResult:', bookingResult)
+
+
+      // On success, send confirmation emails and navigate
       const emailResult = await sendBookingConfirmationEmails(bookingData.value)
+      console.log('[submitBooking] emailResult:', emailResult)
       if (!emailResult.success) {
+        showToast('Please try again')
         return {
           success: false,
           message: emailResult.message || "Échec de l'envoi des emails de confirmation.",
@@ -258,11 +285,15 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
       await router.push('/rendez-vous/confirmation')
 
       return { success: true }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Booking submission failed:', error)
+      // Keep all form data and current step; show temporary toast and do not navigate
+      showToast('Please try again')
+      console.log(error);
+
       return {
         success: false,
-        message: 'Une erreur est survenue. Veuillez réessayer.',
+        message: 'Please try again',
       }
     }
   }
@@ -276,8 +307,31 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
     restoreFromSession()
   })
 
+  watch(
+    hairstyle,
+    (nextHairstyle) => {
+      if (!nextHairstyle) {
+        return
+      }
+
+      bookingData.value.hairstyleName = nextHairstyle.name
+      bookingData.value.hairstyleDuration = nextHairstyle.duration
+      bookingData.value.hairstylePrice = nextHairstyle.price
+    },
+    { immediate: true },
+  )
+
   // Auto-save on data changes
   watch(bookingData, saveToSession, { deep: true })
+
+  // Toast for temporary UI notifications
+  const toastMessage = ref<string | null>(null)
+  function showToast(message: string, duration = 2000) {
+    toastMessage.value = message
+    setTimeout(() => {
+      toastMessage.value = null
+    }, duration)
+  }
 
   return {
     // State
@@ -305,5 +359,8 @@ export function useBookingStepper(hairstyleId: string, hairstyle: HairStyle) {
 
     // Session management
     clearSession,
+
+    // UI helpers
+    toastMessage,
   }
 }

@@ -1,6 +1,6 @@
 /**
  * Booking System Type Definitions
- * 
+ *
  * Complete type system for the booking flow
  */
 
@@ -55,19 +55,12 @@ export interface BusinessHours {
   closeTime: string                 // 'HH:00'
 }
 
-export enum BlockedReason {
-  Booking = 'booking',
-  AdminBlocked = 'admin_blocked',
-  Holiday = 'holiday',
-  Personal = 'personal'
-}
-
 export interface BlockedEvent {
   id: string
   date: string                      // 'YYYY-MM-DD'
   startTime: string                 // 'HH:00'
   endTime: string                   // 'HH:00'
-  reason: BlockedReason
+  reason: string
   bookingId?: string
 }
 
@@ -108,4 +101,30 @@ export interface ValidationResult {
 export interface StepValidation {
   step: BookingStep
   validate: () => ValidationResult
+}
+
+// ============================================================================
+// BOOKING RPC / DB TYPES (added for booking.service)
+// ============================================================================
+
+export interface BookingInput {
+  hairstyleId: string
+  customer: {
+    firstName: string
+    lastName: string
+    email: string
+    phone: string
+  }
+  startDatetime: string // ISO timestamp
+  durationHours: number
+}
+
+export interface Booking {
+  id: string
+  hairstyle_id: string
+  customer_id: string
+  start_datetime: string
+  duration_hours: number
+  status: string
+  created_at?: string
 }

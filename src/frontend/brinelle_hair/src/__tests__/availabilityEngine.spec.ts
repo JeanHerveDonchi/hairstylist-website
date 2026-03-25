@@ -1,12 +1,60 @@
 import { describe, expect, it } from 'vitest'
 
-import { MOCK_BLOCKED_EVENTS, MOCK_BUSINESS_HOURS } from '@/mock-data/availability'
+import type { BlockedEvent, BusinessHours } from '@/types/booking.types'
 import {
   generateDailySlots,
   getUnavailableSlotsFromBlockedEvents,
   getUnavailableSlotsForMonthFromBlocked,
   isSlotUnavailable,
 } from '@/utils/slot-calculations'
+
+const MOCK_BUSINESS_HOURS: BusinessHours[] = [
+  { dayOfWeek: 0, openTime: '08:00', closeTime: '19:00' },
+  { dayOfWeek: 1, openTime: '08:00', closeTime: '20:00' },
+  { dayOfWeek: 2, openTime: '08:00', closeTime: '19:00' },
+  { dayOfWeek: 3, openTime: '08:00', closeTime: '19:00' },
+  { dayOfWeek: 4, openTime: '08:00', closeTime: '19:00' },
+  { dayOfWeek: 5, openTime: '08:00', closeTime: '19:00' },
+  { dayOfWeek: 6, openTime: '08:00', closeTime: '19:00' },
+]
+
+const MOCK_BLOCKED_EVENTS: BlockedEvent[] = [
+  {
+    id: 'blocked-1',
+    date: '2025-12-15',
+    startTime: '10:00',
+    endTime: '13:00',
+    reason: 'Private appointment',
+  },
+  {
+    id: 'blocked-2',
+    date: '2025-12-18',
+    startTime: '14:00',
+    endTime: '15:00',
+    reason: 'Lunch break',
+  },
+  {
+    id: 'blocked-3',
+    date: '2025-12-20',
+    startTime: '14:00',
+    endTime: '15:00',
+    reason: 'Lunch break',
+  },
+  {
+    id: 'blocked-4',
+    date: '2025-12-22',
+    startTime: '09:00',
+    endTime: '11:00',
+    reason: 'Training',
+  },
+  {
+    id: 'blocked-5',
+    date: '2025-12-25',
+    startTime: '08:00',
+    endTime: '19:00',
+    reason: 'Holiday',
+  },
+]
 
 describe('availabilityEngine', () => {
   it('generates hourly slots from business hours for open days', () => {
