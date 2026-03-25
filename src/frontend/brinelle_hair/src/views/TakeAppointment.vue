@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { COLORS } from '@/constants/colors'
-import { MOCK_CATEGORIES } from '@/mock-data/categories'
-import { MOCK_HAIRSTYLES } from '@/mock-data/hairstyles'
 import Title from '@/components/ui/reusable/Title.vue'
 import HairStyleList from '@/components/ui/reusable/HairStyleList.vue'
+import type { Category } from '@/types/category.types'
+import type { HairStyle } from '@/types/hairstyle.types'
+import { fetchCategories } from '@/services/category.service'
+import { fetchHairstyles } from '@/services/hairstyle.service'
 
 type FilterOption = {
   id: string
@@ -14,22 +16,26 @@ type FilterOption = {
 
 const router = useRouter()
 const route = useRoute()
+const categories = ref<Category[]>([])
+const hairstyles = ref<HairStyle[]>([])
+const isLoading = ref(true)
+const loadError = ref<string | null>(null)
 
-const FILTER_OPTIONS: FilterOption[] = [
+const filterOptions = computed<FilterOption[]>(() => [
   { id: 'all', label: 'Tout' },
-  ...MOCK_CATEGORIES.map((category) => ({
+  ...categories.value.map((category) => ({
     id: category.id,
     label: category.title,
   })),
-]
+])
 
-const categoryIds = new Set(MOCK_CATEGORIES.map((category) => category.id))
+const categoryIds = computed(() => new Set(categories.value.map((category) => category.id)))
 
 const selectedCategory = computed(() => {
   const rawCategory = route.query.category
   const category = typeof rawCategory === 'string' ? rawCategory : ''
 
-  if (!category || !categoryIds.has(category)) {
+  if (!category || !categoryIds.value.has(category)) {
     return 'all'
   }
 
@@ -38,10 +44,10 @@ const selectedCategory = computed(() => {
 
 const filteredHairstyles = computed(() => {
   if (selectedCategory.value === 'all') {
-    return MOCK_HAIRSTYLES
+    return hairstyles.value
   }
 
-  return MOCK_HAIRSTYLES.filter((hairstyle) => hairstyle.category?.id === selectedCategory.value)
+  return hairstyles.value.filter((hairstyle) => hairstyle.category?.id === selectedCategory.value)
 })
 
 const handleCategoryFilter = (categoryId: string) => {
@@ -62,6 +68,26 @@ const handleCategoryFilter = (categoryId: string) => {
 const handleHairstyleClick = (id: string) => {
   router.push(`/confirmer-rendez-vous/${id}`)
 }
+
+onMounted(async () => {
+  isLoading.value = true
+  loadError.value = null
+
+  try {
+    const [loadedCategories, loadedHairstyles] = await Promise.all([
+      fetchCategories(),
+      fetchHairstyles(),
+    ])
+
+    categories.value = loadedCategories
+    hairstyles.value = loadedHairstyles
+  } catch (error) {
+    console.error('TakeAppointment load failed', error)
+    loadError.value = 'Impossible de charger les coiffures pour le moment.'
+  } finally {
+    isLoading.value = false
+  }
+})
 </script>
 
 <template>
@@ -79,7 +105,7 @@ const handleHairstyleClick = (id: string) => {
 
         <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <button
-            v-for="option in FILTER_OPTIONS"
+            v-for="option in filterOptions"
             :key="option.id"
             @click="handleCategoryFilter(option.id)"
             class="
@@ -118,7 +144,13 @@ const handleHairstyleClick = (id: string) => {
 
     <section class="px-6 py-8 md:px-12">
       <div class="mx-auto max-w-[1200px]">
-        <div class="flex flex-col gap-4">
+        <div v-if="isLoading" class="py-16 text-center">
+          <p class="font-poppins text-lg" :style="{ color: COLORS.color_text_main }">
+            Chargement des coiffures...
+          </p>
+        </div>
+
+        <div v-else class="flex flex-col gap-4">
           <HairStyleList
             v-for="hairstyle in filteredHairstyles"
             :key="hairstyle.id"
@@ -131,9 +163,9 @@ const handleHairstyleClick = (id: string) => {
           />
         </div>
 
-        <div v-if="filteredHairstyles.length === 0" class="py-16 text-center">
+        <div v-if="!isLoading && filteredHairstyles.length === 0" class="py-16 text-center">
           <p class="font-poppins text-lg" :style="{ color: COLORS.color_text_main }">
-            Aucune coiffure disponible pour cette catégorie.
+            {{ loadError || 'Aucune coiffure disponible pour cette catégorie.' }}
           </p>
         </div>
       </div>

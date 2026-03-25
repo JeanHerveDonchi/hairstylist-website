@@ -3,7 +3,6 @@ export interface Category {
     coverImageUrl: string,
     title: HairstyleCategoryName,
     startPrice: number,
-    available: boolean,
     description: string
 }
 
