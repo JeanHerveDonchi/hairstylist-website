@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { BookingStepConfig } from '@/types/booking.types'
 
 /**
  * Visual Stepper Component
- * 
+ *
  * Displays progress through booking steps
  */
 
@@ -35,11 +34,11 @@ const getStepStatus = (stepNumber: number) => {
         <!-- Step Item -->
         <div class="flex flex-col items-center flex-1 relative z-10">
           <!-- Step Label (Above Circle) -->
-          <p 
+          <p
             class="
-              text-center 
+              text-center
               text-[14px]
-              font-poppins 
+              font-poppins
               font-normal
               max-w-[140px]
               mb-3
@@ -52,13 +51,13 @@ const getStepStatus = (stepNumber: number) => {
           >
             {{ step.title }}
           </p>
-          
+
           <!-- Step Circle -->
-          <div 
+          <div
             class="
               w-10 h-10
-              rounded-full 
-              flex items-center justify-center 
+              rounded-full
+              flex items-center justify-center
               font-poppins font-normal text-base
               transition-all duration-300
             "
@@ -76,9 +75,9 @@ const getStepStatus = (stepNumber: number) => {
             <span v-else>{{ step.step }}</span>
           </div>
         </div>
-        
+
         <!-- Connector Line (not after last step) -->
-        <div 
+        <div
           v-if="index < steps.length - 1"
           class="
             flex-1

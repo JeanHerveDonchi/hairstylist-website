@@ -3,6 +3,8 @@
  * Centralized for easy updates (future dashboard integration)
  */
 
+import type { Hairstylist } from "@/types/hairstylist.types"
+
 export const SOCIAL_LINKS = {
   instagram: '#',
   facebook: '#',
@@ -24,7 +26,8 @@ export const INTERNAL_ROUTES = {
   gallery: '/galerie', // Gallery page route (not created yet)
 } as const
 
-export const HAIRSTYLIST = {
+export const HAIRSTYLIST: Hairstylist = {
+  id: '1',
   name: 'Brinelle',
   email: 'donchiherve1@gmail.com',
   phone: '506-899-7052',

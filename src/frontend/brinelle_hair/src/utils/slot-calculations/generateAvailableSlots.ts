@@ -1,30 +1,46 @@
-export function generateAvailableSlots({
-  hours,
-  appointments,
-  blocked,
-  duration
-}: {
+import type { TimeSlot } from '@/types/booking.types'
+
+interface GenerateSlotsOptions {
   hours: any
   appointments: any[]
   blocked: any[]
   duration: number
-}) {
-  const slots: string[] = []
+}
+
+export function generateTimeSlots({
+  hours,
+  appointments,
+  blocked,
+  duration
+}: GenerateSlotsOptions): TimeSlot[] {
+  const slots: TimeSlot[] = []
 
   const startHour = parseInt((hours.open_time?.split(':')[0]) ?? '0')
   const endHour = parseInt((hours.close_time?.split(':')[0]) ?? '0')
 
   for (let hour = startHour; hour < endHour; hour++) {
-    const slot = `${hour.toString().padStart(2, '0')}:00`
+    const time = `${hour.toString().padStart(2, '0')}:00`
+    const exceedsBusinessHours = hour + duration > endHour
+    const isTaken = exceedsBusinessHours || isSlotTaken(time, duration, appointments, blocked)
 
-    const isTaken = isSlotTaken(slot, duration, appointments, blocked)
-
-    if (!isTaken) {
-      slots.push(slot)
-    }
+    slots.push({
+      time,
+      available: !isTaken,
+    })
   }
 
   return slots
+}
+
+export function generateAvailableSlots({
+  hours,
+  appointments,
+  blocked,
+  duration
+}: GenerateSlotsOptions) {
+  return generateTimeSlots({ hours, appointments, blocked, duration })
+    .filter((slot) => slot.available)
+    .map((slot) => slot.time)
 }
 
 function isSlotTaken(

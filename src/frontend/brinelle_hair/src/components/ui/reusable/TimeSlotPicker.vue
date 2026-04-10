@@ -2,24 +2,17 @@
 import { computed } from 'vue'
 import type { TimeSlot } from '@/types/booking.types'
 
-/**
- * Time Slot Picker Component
- * 
- * Grid of time buttons with:
- * - Available/unavailable slots
- * - Selection highlight
- * - Scrollable list
- */
-
 interface Props {
   slots: TimeSlot[]              // Array of time slots with availability
   selectedTime?: string | null   // Currently selected time 'HH:00'
   isLoading?: boolean            // Loading state when fetching slots
+  blockedEvents?: Array<{ date: string; startTime: string; endTime: string }>
 }
 
 const props = withDefaults(defineProps<Props>(), {
   selectedTime: null,
-  isLoading: false
+  isLoading: false,
+  blockedEvents: undefined,
 })
 
 const emit = defineEmits<{
@@ -37,9 +30,23 @@ const formattedSlots = computed(() => {
     const hour = Number(hourStr ?? '0') || 0
     const period = hour >= 12 ? 'PM' : 'AM'
     const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
-    
+
+    // Determine availability override by blocked events
+    let available = slot.available
+
+    if (props.blockedEvents && props.blockedEvents.length > 0) {
+      for (const be of props.blockedEvents) {
+        // Compare times as HH:MM strings (same day)
+        if (be.startTime <= slot.time && slot.time < be.endTime) {
+          available = false
+          break
+        }
+      }
+    }
+
     return {
       ...slot,
+      available,
       formatted: `${displayHour}:00 ${period}`
     }
   })
@@ -49,9 +56,9 @@ const formattedSlots = computed(() => {
 // METHODS
 // ==========================================================================
 
-const selectTime = (slot: any) => {
+const selectTime = (slot: TimeSlot) => {
   if (!slot.available) return
-  
+
   emit('timeSelected', slot.time)
 }
 </script>
@@ -61,19 +68,19 @@ const selectTime = (slot: any) => {
     <h3 class="text-lg font-poppins font-semibold text-[#6E645F] mb-4">
       Horaires disponibles
     </h3>
-    
+
     <!-- Loading State -->
     <div v-if="isLoading" class="flex items-center justify-center py-12">
       <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#F98B54]"></div>
     </div>
-    
+
     <!-- Empty State -->
     <div v-else-if="slots.length === 0" class="text-center py-12">
       <p class="text-sm font-poppins text-[#B4AAA6]">
         Aucun horaire disponible pour cette date
       </p>
     </div>
-    
+
     <!-- Time Slots Grid -->
     <div v-else class="time-slots-container space-y-2 max-h-96 overflow-y-auto pr-2">
       <button

@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { UUID } from '@/types/common.types'
-import type { Category } from '@/types/category.types'
+import { HairstyleCategoryName, type Category } from '@/types/category.types'
 
 type CategoryRow = {
   id: string
@@ -9,11 +9,21 @@ type CategoryRow = {
   starting_price: number
 }
 
+const CATEGORY_NAME_MAP: Record<string, HairstyleCategoryName> = {
+  men: HairstyleCategoryName.Men,
+  women: HairstyleCategoryName.Women,
+  children: HairstyleCategoryName.Children,
+}
+
+function mapCategoryTitle(name: string): Category['title'] {
+  return CATEGORY_NAME_MAP[name.toLowerCase()] ?? (name as Category['title'])
+}
+
 function mapCategoryRow(row: CategoryRow): Category {
   return {
     id: row.id as UUID,
     coverImageUrl: row.image_url || '',
-    title: row.name as Category['title'],
+    title: mapCategoryTitle(row.name),
     startPrice: row.starting_price,
     description: '',
   }
@@ -26,8 +36,8 @@ export async function fetchCategories(): Promise<Category[]> {
     .order('starting_price', { ascending: true })
 
   if (error) {
-    console.error('fetchCategories error', error)
-    return []
+    console.error('fetchCategories error', { data, error })
+    throw error
   }
 
   return (data ?? []).map((row) => mapCategoryRow(row as CategoryRow))

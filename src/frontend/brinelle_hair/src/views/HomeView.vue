@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import Title from '@/components/ui/reusable/Title.vue'
@@ -8,11 +8,14 @@ import MainButton from '@/components/ui/reusable/MainButton.vue'
 import { COLORS } from '@/constants/colors'
 import type { Category } from '@/types/category.types'
 import { fetchCategories } from '@/services/category.service'
+import { data } from '@/data/cms0'
 
 const router = useRouter()
 const categories = ref<Category[]>([])
 const isLoadingCategories = ref(true)
 const categoriesError = ref<string | null>(null)
+const defaultHeroTitle = 'tressez vos cheveux avec soins'
+const heroTitle = ref(defaultHeroTitle)
 
 const categoryRoutes = computed(() =>
   categories.value.map((category) => ({
@@ -32,21 +35,32 @@ onMounted(async () => {
   isLoadingCategories.value = true
   categoriesError.value = null
 
-  try {
-    categories.value = await fetchCategories()
-  } catch (error) {
-    console.error('HomeView categories load failed', error)
-    categoriesError.value = 'Impossible de charger les categories pour le moment.'
-  } finally {
-    isLoadingCategories.value = false
+  const [homeResult, categoriesResult] = await Promise.allSettled([
+    data.HomePage(),
+    fetchCategories(),
+  ])
+
+  if (homeResult.status === 'fulfilled') {
+    heroTitle.value = homeResult.value.heroTitle || defaultHeroTitle
+  } else {
+    console.error('HomeView CMS load failed', homeResult.reason)
   }
+
+  if (categoriesResult.status === 'fulfilled') {
+    categories.value = categoriesResult.value
+  } else {
+    console.error('HomeView categories load failed', categoriesResult.reason)
+    categoriesError.value = 'Impossible de charger les categories pour le moment.'
+  }
+
+  isLoadingCategories.value = false
 })
 </script>
 
 <template>
   <div id="app">
     <HeroSection />
-    <Title text="tressez vos cheveux avec soins" />
+    <Title :text="heroTitle" />
     <section id="services" class="scroll-mt-[140px] py-16 px-6">
       <div class="max-w-[1400px] mx-auto">
         <div v-if="isLoadingCategories" class="py-16 text-center">

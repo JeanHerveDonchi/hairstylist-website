@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useAvailability } from '@/composables/useAvailability'
 import { formatDate } from '@/utils/booking/validations/formatDate'
 import Calendar from './Calendar.vue'
 import TimeSlotPicker from './TimeSlotPicker.vue'
 import { type TimeSlot } from '@/types/booking.types'
+import { fetchBlockedEventsForDate } from '@/services/blockedEvents.service'
 /**
  * DateTime Picker Component
  *
@@ -55,6 +56,7 @@ const {
 const selectedDate = ref<string | null>(props.initialDate)
 const selectedTime = ref<string | null>(props.initialTime)
 const availableTimeSlots = ref<TimeSlot[]>([])
+const blockedEventsForDate = ref<Array<{ date: string; startTime: string; endTime: string }>>([])
 const unavailableDates = ref<Set<string>>(new Set())
 const isLoadingSlots = ref(false)
 const currentMonth = ref(new Date().getMonth() + 1)
@@ -113,7 +115,11 @@ const handleDateSelected = async (date: string) => {
   await new Promise(resolve => setTimeout(resolve, 300))
 
   const durationHours = Math.ceil((props.hairstyleDuration ?? 60) / 60)
-  availableTimeSlots.value = await getAvailableSlotsForDate(date, undefined, durationHours)
+  availableTimeSlots.value = await getAvailableSlotsForDate(date, durationHours, undefined)
+
+  // Fetch blocked events for date and override availability
+  blockedEventsForDate.value = await fetchBlockedEventsForDate(date)
+
   isLoadingSlots.value = false
 }
 
@@ -138,7 +144,7 @@ const handleMonthChanged = async (year: number, month: number) => {
   await loadMonthAvailability(year, month, undefined)
 
   // Update unavailable dates set
-  const allDates = await getAvailableDatesForMonth(year, month, undefined, durationHours)
+  const allDates = await getAvailableDatesForMonth(year, month, durationHours, undefined)
 
   // Get all dates in month
   const daysInMonth = new Date(year, month, 0).getDate()
@@ -166,7 +172,8 @@ onMounted(async () => {
   // If initial date provided, load its time slots
   if (selectedDate.value) {
     const durationHours = Math.ceil((props.hairstyleDuration ?? 60) / 60)
-    availableTimeSlots.value = await getAvailableSlotsForDate(selectedDate.value, undefined, durationHours)
+    availableTimeSlots.value = await getAvailableSlotsForDate(selectedDate.value, durationHours, undefined)
+    blockedEventsForDate.value = await fetchBlockedEventsForDate(selectedDate.value)
   }
 })
 </script>
@@ -191,6 +198,7 @@ onMounted(async () => {
         :slots="availableTimeSlots"
         :selectedTime="selectedTime"
         :isLoading="isLoadingSlots"
+        :blockedEvents="blockedEventsForDate"
         @timeSelected="handleTimeSelected"
       />
 

@@ -46,8 +46,8 @@ export async function fetchHairstyles(): Promise<HairStyle[]> {
   const { data, error } = hairstyleResponse
 
   if (error) {
-    console.error('fetchHairstyles error', error)
-    return []
+    console.error('fetchHairstyles error', { data, error })
+    throw error
   }
 
   const categoryById = new Map(categories.map((category) => [category.id, category]))

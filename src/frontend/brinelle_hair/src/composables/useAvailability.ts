@@ -7,7 +7,7 @@
 import { ref } from 'vue'
 
 import { fetchAvailability } from '@/services/availability.service'
-import { generateAvailableSlots } from '@/utils/slot-calculations/generateAvailableSlots'
+import { generateTimeSlots } from '@/utils/slot-calculations/generateAvailableSlots'
 
 import type { TimeSlot } from '@/types/booking.types'
 import { formatDate } from '@/utils/booking/validations/formatDate'
@@ -25,7 +25,7 @@ export function useAvailability() {
     // ==========================================================================
 
     /**
-     * Get all available time slots for a specific date
+     * Get all business-hour time slots for a specific date
      * Fetches business hours, appointments and blocked events from Supabase
      */
     const getAvailableSlotsForDate = async (
@@ -39,14 +39,12 @@ export function useAvailability() {
             return []
         }
 
-        const slots = generateAvailableSlots({
+        return generateTimeSlots({
             hours: data.hours,
             appointments: data.appointments || [],
             blocked: data.blocked || [],
             duration: durationHours
         })
-
-        return slots.map((time) => ({ time, available: true }))
     }
 
     /**
@@ -54,7 +52,7 @@ export function useAvailability() {
      */
     const isDayCompletelyUnavailable = async (date: string, durationHours: number, hairstylistId?: string | null): Promise<boolean> => {
         const slots = await getAvailableSlotsForDate(date, durationHours, hairstylistId)
-        return slots.length === 0
+        return !slots.some(slot => slot.available)
     }
 
     /**
@@ -70,7 +68,7 @@ export function useAvailability() {
         // Convert durationMinutes to hours rounded up for our slot granularity
         const durationHours = Math.ceil(durationMinutes / 60)
 
-        const availableSlots = await getAvailableSlotsForDate(date, durationHours, hairstylistId)
+        const timeSlots = await getAvailableSlotsForDate(date, durationHours, hairstylistId)
         const requiredSlots: string[] = []
 
         // Build required slots based on startTime and durationHours
@@ -80,7 +78,7 @@ export function useAvailability() {
         }
 
         for (const requiredSlot of requiredSlots) {
-            const slot = availableSlots.find(s => s.time === requiredSlot)
+            const slot = timeSlots.find(s => s.time === requiredSlot)
 
             if (!slot || !slot.available) {
                 return {

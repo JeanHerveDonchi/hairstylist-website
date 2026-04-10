@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { reactive, watch } from 'vue'
 import { useBookingValidation } from '@/composables/useBookingValidation'
 import type { UserInfo } from '@/types/booking.types'
 
 /**
  * Step 1: User Information Form
- * 
+ *
  * Collects customer contact details with real-time validation
  */
 
@@ -42,7 +42,7 @@ const touched = reactive<Record<string, boolean>>({})
 const validateField = (field: keyof UserInfo) => {
   touched[field] = true
   const error = getFieldError(field, formData[field])
-  
+
   if (error) {
     errors[field] = error
   } else {
@@ -52,17 +52,17 @@ const validateField = (field: keyof UserInfo) => {
 
 const validateAllFields = () => {
   const result = validateUserInfo(formData)
-  
+
   Object.keys(formData).forEach(key => {
     touched[key] = true
   })
-  
+
   if (result.isValid) {
     Object.keys(errors).forEach(key => delete errors[key])
   } else {
     Object.assign(errors, result.errors)
   }
-  
+
   return result.isValid
 }
 
@@ -83,12 +83,12 @@ watch(formData, () => {
     <h2 class="text-2xl md:text-3xl font-poppins font-semibold text-[#6E645F] mb-8 text-center">
       Vos informations
     </h2>
-    
+
     <div class="space-y-6">
       <!-- First Name -->
       <div>
-        <label 
-          for="firstName" 
+        <label
+          for="firstName"
           class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Prénom *
@@ -99,8 +99,8 @@ watch(formData, () => {
           type="text"
           @blur="validateField('firstName')"
           class="
-            w-full 
-            px-4 py-3 
+            w-full
+            px-4 py-3
             border rounded-lg
             font-poppins
             focus:outline-none focus:ring-2 focus:ring-[#F98B54] focus:border-transparent
@@ -112,18 +112,18 @@ watch(formData, () => {
           }"
           placeholder="Entrez votre prénom"
         />
-        <p 
-          v-if="errors.firstName && touched.firstName" 
+        <p
+          v-if="errors.firstName && touched.firstName"
           class="mt-1 text-sm text-red-600 font-poppins"
         >
           {{ errors.firstName }}
         </p>
       </div>
-      
+
       <!-- Last Name -->
       <div>
-        <label 
-          for="lastName" 
+        <label
+          for="lastName"
           class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Nom de famille *
@@ -134,8 +134,8 @@ watch(formData, () => {
           type="text"
           @blur="validateField('lastName')"
           class="
-            w-full 
-            px-4 py-3 
+            w-full
+            px-4 py-3
             border rounded-lg
             font-poppins
             focus:outline-none focus:ring-2 focus:ring-[#F98B54] focus:border-transparent
@@ -147,18 +147,18 @@ watch(formData, () => {
           }"
           placeholder="Entrez votre nom de famille"
         />
-        <p 
-          v-if="errors.lastName && touched.lastName" 
+        <p
+          v-if="errors.lastName && touched.lastName"
           class="mt-1 text-sm text-red-600 font-poppins"
         >
           {{ errors.lastName }}
         </p>
       </div>
-      
+
       <!-- Email -->
       <div>
-        <label 
-          for="email" 
+        <label
+          for="email"
           class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Email *
@@ -169,8 +169,8 @@ watch(formData, () => {
           type="email"
           @blur="validateField('email')"
           class="
-            w-full 
-            px-4 py-3 
+            w-full
+            px-4 py-3
             border rounded-lg
             font-poppins
             focus:outline-none focus:ring-2 focus:ring-[#F98B54] focus:border-transparent
@@ -182,18 +182,18 @@ watch(formData, () => {
           }"
           placeholder="exemple@email.com"
         />
-        <p 
-          v-if="errors.email && touched.email" 
+        <p
+          v-if="errors.email && touched.email"
           class="mt-1 text-sm text-red-600 font-poppins"
         >
           {{ errors.email }}
         </p>
       </div>
-      
+
       <!-- Phone -->
       <div>
-        <label 
-          for="phone" 
+        <label
+          for="phone"
           class="block text-sm font-poppins font-light text-[#B4AAA6] mb-2"
         >
           Téléphone *
@@ -204,8 +204,8 @@ watch(formData, () => {
           type="tel"
           @blur="validateField('phone')"
           class="
-            w-full 
-            px-4 py-3 
+            w-full
+            px-4 py-3
             border rounded-lg
             font-poppins
             focus:outline-none focus:ring-2 focus:ring-[#F98B54] focus:border-transparent
@@ -217,15 +217,15 @@ watch(formData, () => {
           }"
           placeholder="506-123-4567"
         />
-        <p 
-          v-if="errors.phone && touched.phone" 
+        <p
+          v-if="errors.phone && touched.phone"
           class="mt-1 text-sm text-red-600 font-poppins"
         >
           {{ errors.phone }}
         </p>
       </div>
     </div>
-    
+
     <p class="mt-6 text-sm text-gray-500 font-poppins text-center">
       * Champs obligatoires
     </p>

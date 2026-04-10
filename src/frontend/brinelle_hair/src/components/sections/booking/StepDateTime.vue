@@ -3,7 +3,7 @@ import DateTimePicker from '@/components/ui/reusable/DateTimePicker.vue'
 
 /**
  * Step 2: Date & Time Selection
- * 
+ *
  * Uses the reusable DateTimePicker component
  */
 
@@ -24,7 +24,7 @@ const handleUpdate = (date: string, time: string) => {
   emit('update', date, time)
 };
 
-const handleUpdateDate = (date: string): any => {
+const handleUpdateDate = (date: string): void => {
   emit('dateChanged', date)
 }
 </script>
@@ -34,7 +34,7 @@ const handleUpdateDate = (date: string): any => {
     <h2 class="text-2xl md:text-3xl font-poppins font-semibold text-[#6E645F] mb-8 text-center">
       Choisissez votre horaire
     </h2>
-    
+
     <!-- DateTime Picker -->
     <DateTimePicker
       :initialDate="initialDate"

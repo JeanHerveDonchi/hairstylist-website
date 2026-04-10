@@ -15,6 +15,7 @@ import { sendBookingConfirmationEmails } from '@/services/email.service'
 import { createBooking } from '@/services/booking.service'
 
 const SESSION_STORAGE_KEY = 'booking_session'
+const SLOT_CONFLICT_MESSAGE = "Ce créneau n'est plus disponible. Veuillez en choisir un autre."
 
 export function useBookingStepper(hairstyleId: string, hairstyle: Ref<HairStyle | null>) {
   const router = useRouter()
@@ -174,6 +175,13 @@ export function useBookingStepper(hairstyleId: string, hairstyle: Ref<HairStyle 
     saveToSession()
   }
 
+  const handleSlotConflict = () => {
+    bookingData.value.selectedTime = null
+    currentStep.value = Step.DateTime
+    saveToSession()
+    showToast(SLOT_CONFLICT_MESSAGE, 4000)
+  }
+
   // ==========================================================================
   // SESSION PERSISTENCE
   // ==========================================================================
@@ -258,18 +266,14 @@ export function useBookingStepper(hairstyleId: string, hairstyle: Ref<HairStyle 
       durationHours: bookingData.value.hairstyleDuration / 60, // convert minutes to hours
     }
 
-    console.log(bookingData);
-
     try {
       // Call booking RPC via service
 
       const bookingResult = await createBooking(bookingInput as any)
-      console.log('[submitBooking] bookingResult:', bookingResult)
 
 
       // On success, send confirmation emails and navigate
       const emailResult = await sendBookingConfirmationEmails(bookingData.value)
-      console.log('[submitBooking] emailResult:', emailResult)
       if (!emailResult.success) {
         showToast('Please try again')
         return {
@@ -286,10 +290,25 @@ export function useBookingStepper(hairstyleId: string, hairstyle: Ref<HairStyle 
 
       return { success: true }
     } catch (error: unknown) {
+      const isConflict =
+        typeof error === 'object' &&
+        error !== null &&
+        'conflict' in error &&
+        error.conflict === true
+
+      if (isConflict) {
+        handleSlotConflict()
+
+        return {
+          success: false,
+          message: SLOT_CONFLICT_MESSAGE,
+          reason: 'conflict' as const,
+        }
+      }
+
       console.error('Booking submission failed:', error)
       // Keep all form data and current step; show temporary toast and do not navigate
       showToast('Please try again')
-      console.log(error);
 
       return {
         success: false,

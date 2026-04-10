@@ -90,9 +90,7 @@ const handleBack = () => {
 }
 
 const handleConfirm = async () => {
-  const result = await submitBooking()
-
-  // submitBooking now shows a toast on failure; no alert/navigation here
+  await submitBooking()
 }
 </script>
 
