@@ -10,9 +10,8 @@ type RootSchema = {
       servicesLabel: LocalizedString;
       contactsLabel: LocalizedString;
       bookingCta: LocalizedString;
-    }
-  }
-
+    };
+  };
   HomePage: {
     heroTitle: string;
   };

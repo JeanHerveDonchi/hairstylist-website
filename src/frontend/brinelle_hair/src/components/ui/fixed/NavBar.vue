@@ -17,7 +17,7 @@ const { t } = useLocalized()
 const siteSettings = ref(null as any | null)
 
 onMounted(async () => {
-  siteSettings.value = await data.SiteSettings()
+  siteSettings.value = await data.SiteSettings();
 })
 
 // computed localized labels (reactive to locale changes)
