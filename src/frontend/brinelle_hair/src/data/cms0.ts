@@ -1,7 +1,18 @@
 //import "dotenv/config";
 import { cms0 } from "@cms0/cms0";
+import { type LocalizedString } from "@cms0/cms0/custom-types";
 
 type RootSchema = {
+
+  SiteSettings: {
+    brandName: LocalizedString;
+    navbar: {
+      servicesLabel: LocalizedString;
+      contactsLabel: LocalizedString;
+      bookingCta: LocalizedString;
+    }
+  }
+
   HomePage: {
     heroTitle: string;
   };

@@ -14,8 +14,7 @@ const router = useRouter()
 const categories = ref<Category[]>([])
 const isLoadingCategories = ref(true)
 const categoriesError = ref<string | null>(null)
-const defaultHeroTitle = 'tressez vos cheveux avec soins'
-const heroTitle = ref(defaultHeroTitle)
+const heroTitle = ref<string>("")
 
 const categoryRoutes = computed(() =>
   categories.value.map((category) => ({
@@ -41,7 +40,7 @@ onMounted(async () => {
   ])
 
   if (homeResult.status === 'fulfilled') {
-    heroTitle.value = homeResult.value.heroTitle || defaultHeroTitle
+    heroTitle.value = homeResult.value.heroTitle
   } else {
     console.error('HomeView CMS load failed', homeResult.reason)
   }
