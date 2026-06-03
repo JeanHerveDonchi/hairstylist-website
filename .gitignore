@@ -1,0 +1,27 @@
+# Environment files
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Markdown files (except README.md)
+*.md
+!README.md
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+
+# Debug
+*.tsbuildinfo
+*.local

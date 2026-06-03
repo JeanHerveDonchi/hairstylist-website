@@ -1,0 +1,537 @@
+{
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/tsconfig.node.json": {
+    "mtime": 1763463532.4811347,
+    "ast_hash": "dcd2fd2c3b61855d28f1245e0bfdbaf4",
+    "semantic_hash": "dcd2fd2c3b61855d28f1245e0bfdbaf4"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/tsconfig.app.json": {
+    "mtime": 1763463532.4803708,
+    "ast_hash": "16d46f4ac727f241373787684e155ff4",
+    "semantic_hash": "16d46f4ac727f241373787684e155ff4"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/env.d.ts": {
+    "mtime": 1780418330.4445837,
+    "ast_hash": "0baa634a1df679688b1604fbe23d90be",
+    "semantic_hash": "0baa634a1df679688b1604fbe23d90be"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/eslint.config.ts": {
+    "mtime": 1763463532.4863267,
+    "ast_hash": "9f8e6308dc3ec4ad8a5f09b5e90d039a",
+    "semantic_hash": "9f8e6308dc3ec4ad8a5f09b5e90d039a"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/.prettierrc.json": {
+    "mtime": 1763463532.4878013,
+    "ast_hash": "81e1a85eb3522eed48d5095183125238",
+    "semantic_hash": "81e1a85eb3522eed48d5095183125238"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/package.json": {
+    "mtime": 1780418300.9238546,
+    "ast_hash": "a921adb6801b59320f7a358a8ff4af04",
+    "semantic_hash": "a921adb6801b59320f7a358a8ff4af04"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/tsconfig.vitest.json": {
+    "mtime": 1763463532.4824743,
+    "ast_hash": "ddeb0312502c350e406609614814719e",
+    "semantic_hash": "ddeb0312502c350e406609614814719e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/tsconfig.json": {
+    "mtime": 1774316244.0949426,
+    "ast_hash": "9bc8a64886307522c0781b1d08a3eefa",
+    "semantic_hash": "9bc8a64886307522c0781b1d08a3eefa"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/vite.config.ts": {
+    "mtime": 1765827661.0408244,
+    "ast_hash": "bd6109378bc2451ab4d7522724943168",
+    "semantic_hash": "bd6109378bc2451ab4d7522724943168"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/vitest.config.ts": {
+    "mtime": 1763463532.4785974,
+    "ast_hash": "fbf1ae958316eb66f11ca04b23d38fff",
+    "semantic_hash": "fbf1ae958316eb66f11ca04b23d38fff"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/.vscode/settings.json": {
+    "mtime": 1763463532.4873776,
+    "ast_hash": "5d694cc3b40d80c874bc07defcd82223",
+    "semantic_hash": "5d694cc3b40d80c874bc07defcd82223"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/.vscode/extensions.json": {
+    "mtime": 1763463532.4872346,
+    "ast_hash": "1e46a00ef7040fa39d418f9fc0446f9b",
+    "semantic_hash": "1e46a00ef7040fa39d418f9fc0446f9b"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/App.vue": {
+    "mtime": 1774052862.3743706,
+    "ast_hash": "93ead18ab63db0b7a589cd62cf0b9a33",
+    "semantic_hash": "93ead18ab63db0b7a589cd62cf0b9a33"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/main.ts": {
+    "mtime": 1763525200.2091656,
+    "ast_hash": "fa275b6fcd6e15f2e68ad5c11f7c9177",
+    "semantic_hash": "fa275b6fcd6e15f2e68ad5c11f7c9177"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/types/common.types.ts": {
+    "mtime": 1774424221.4156363,
+    "ast_hash": "ade9709a618aa53ce537eb3dd50546eb",
+    "semantic_hash": "ade9709a618aa53ce537eb3dd50546eb"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/types/customer.types.ts": {
+    "mtime": 1774311090.901448,
+    "ast_hash": "fc8a94f81a9ed51f93eb2ebf7bd7a306",
+    "semantic_hash": "fc8a94f81a9ed51f93eb2ebf7bd7a306"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/types/category.types.ts": {
+    "mtime": 1774424656.6034105,
+    "ast_hash": "33cca54c1e925df08214e264ace78ef9",
+    "semantic_hash": "33cca54c1e925df08214e264ace78ef9"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/types/hairstyle.types.ts": {
+    "mtime": 1764559771.876955,
+    "ast_hash": "06c09d2ed92cd85ffdf7010f0cdf92ad",
+    "semantic_hash": "06c09d2ed92cd85ffdf7010f0cdf92ad"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/types/hairstylist.types.ts": {
+    "mtime": 1774426139.6536336,
+    "ast_hash": "8a7a1c326e90b0c1df726c2fce391439",
+    "semantic_hash": "8a7a1c326e90b0c1df726c2fce391439"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/types/booking.types.ts": {
+    "mtime": 1780418222.9962683,
+    "ast_hash": "0c6287475819d2eaf6edcb6247cc06bb",
+    "semantic_hash": "0c6287475819d2eaf6edcb6247cc06bb"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/composables/useImageValidation.ts": {
+    "mtime": 1765247365.6976779,
+    "ast_hash": "5343e232499260db1223f01d77a2b53b",
+    "semantic_hash": "5343e232499260db1223f01d77a2b53b"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/composables/useBookingValidation.ts": {
+    "mtime": 1765250177.766654,
+    "ast_hash": "0643c291f0ce3c49c6a557a4debc1441",
+    "semantic_hash": "0643c291f0ce3c49c6a557a4debc1441"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/composables/useBookingStepper.ts": {
+    "mtime": 1780420525.0761487,
+    "ast_hash": "4b6a034a3cd713d449fe78aa3549ecd2",
+    "semantic_hash": "4b6a034a3cd713d449fe78aa3549ecd2"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/composables/useLocale.ts": {
+    "mtime": 1776044181.4263716,
+    "ast_hash": "4147daccb0185ff772a8e45f0ec45f95",
+    "semantic_hash": "4147daccb0185ff772a8e45f0ec45f95"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/composables/useAvailability.ts": {
+    "mtime": 1775275393.351048,
+    "ast_hash": "3a1139f4057b5f4f3ad0296720dfcd03",
+    "semantic_hash": "3a1139f4057b5f4f3ad0296720dfcd03"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/composables/useFetch.ts": {
+    "mtime": 1763513332.7866342,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/mock-data/availability.ts": {
+    "mtime": 1774898446.995055,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/mock-data/categories.ts": {
+    "mtime": 1774898446.8796303,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/mock-data/hairstyles.ts": {
+    "mtime": 1774898446.836096,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/constants/colors.ts": {
+    "mtime": 1764547490.2174253,
+    "ast_hash": "8bf03bcc38a6678ad8a1c1272dc01729",
+    "semantic_hash": "8bf03bcc38a6678ad8a1c1272dc01729"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/constants/images.ts": {
+    "mtime": 1764414502.50311,
+    "ast_hash": "f5f5a8fe13a3874ea9b17476aea49716",
+    "semantic_hash": "f5f5a8fe13a3874ea9b17476aea49716"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/constants/links.ts": {
+    "mtime": 1774426165.0511584,
+    "ast_hash": "40817730a233938bcb2c97bc66533784",
+    "semantic_hash": "40817730a233938bcb2c97bc66533784"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/constants/business-rules/business-rules.ts": {
+    "mtime": 1774427575.2022042,
+    "ast_hash": "53f76cf1c550459bcad023ee799a1af8",
+    "semantic_hash": "53f76cf1c550459bcad023ee799a1af8"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/validateUUID.ts": {
+    "mtime": 1774424221.8635678,
+    "ast_hash": "933420b7ad646c14a52afbf5df8e0e23",
+    "semantic_hash": "933420b7ad646c14a52afbf5df8e0e23"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/locales/useLocalized.ts": {
+    "mtime": 1776043298.3156378,
+    "ast_hash": "7e528f7d8d3ff0985ac6178b15ea1612",
+    "semantic_hash": "7e528f7d8d3ff0985ac6178b15ea1612"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/booking/validations/isFutureDate.ts": {
+    "mtime": 1765163542.7260773,
+    "ast_hash": "1facea50119ca892aad9d4f4c5d269c7",
+    "semantic_hash": "1facea50119ca892aad9d4f4c5d269c7"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/booking/validations/formatDate.ts": {
+    "mtime": 1765162771.0440392,
+    "ast_hash": "c18b0f062f1408315f49d6d8cd5ffdd1",
+    "semantic_hash": "c18b0f062f1408315f49d6d8cd5ffdd1"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/booking/validations/isDateInValidRange.ts": {
+    "mtime": 1765163535.4560382,
+    "ast_hash": "c27478ed30f563d336a47ce69d70a058",
+    "semantic_hash": "c27478ed30f563d336a47ce69d70a058"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/user/validations/validatePhone.ts": {
+    "mtime": 1765164198.899265,
+    "ast_hash": "df2000dfc0151bf54cd1b223e2107c8a",
+    "semantic_hash": "df2000dfc0151bf54cd1b223e2107c8a"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/user/validations/validateName.ts": {
+    "mtime": 1765250177.758448,
+    "ast_hash": "33c4ba36be0b0643168be0b8735f7fa1",
+    "semantic_hash": "33c4ba36be0b0643168be0b8735f7fa1"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/user/validations/validateEmail.ts": {
+    "mtime": 1765164175.903062,
+    "ast_hash": "f310b83d2c11ebd9ebd5b5a8578d2c44",
+    "semantic_hash": "f310b83d2c11ebd9ebd5b5a8578d2c44"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/validations/checkImageLoad.ts": {
+    "mtime": 1765164319.905026,
+    "ast_hash": "db1c1d3c193a4127bd36735cca1d4c5a",
+    "semantic_hash": "db1c1d3c193a4127bd36735cca1d4c5a"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/session-storage/saveStateToSession.ts": {
+    "mtime": 1765247920.0482547,
+    "ast_hash": "be4b3571ed38724cf0843f1b8f59d4e7",
+    "semantic_hash": "be4b3571ed38724cf0843f1b8f59d4e7"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/session-storage/loadSession.ts": {
+    "mtime": 1765248089.340209,
+    "ast_hash": "5fac1bcdba62a8b2a00369ed8e99fd51",
+    "semantic_hash": "5fac1bcdba62a8b2a00369ed8e99fd51"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/session-storage/clearSession.ts": {
+    "mtime": 1765248258.7971048,
+    "ast_hash": "5719714412dea51f927bb87daa9b57d4",
+    "semantic_hash": "5719714412dea51f927bb87daa9b57d4"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/slot-calculations/generateAvailableSlots.ts": {
+    "mtime": 1775275393.3504827,
+    "ast_hash": "b60f4c9e63b89e940eebad731b01abc8",
+    "semantic_hash": "b60f4c9e63b89e940eebad731b01abc8"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/slot-calculations/availabilityEngine.ts": {
+    "mtime": 1773997658.0238516,
+    "ast_hash": "7a3e642a2980bcdf23e8d024d4a8e3a2",
+    "semantic_hash": "7a3e642a2980bcdf23e8d024d4a8e3a2"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/slot-calculations/getBlockedSlots.ts": {
+    "mtime": 1765163511.186674,
+    "ast_hash": "ba059ab6818eb27f354ee7415d24a452",
+    "semantic_hash": "ba059ab6818eb27f354ee7415d24a452"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/slot-calculations/index.ts": {
+    "mtime": 1773625496.7661583,
+    "ast_hash": "509aca67b52896e67f1d2ce30353246a",
+    "semantic_hash": "509aca67b52896e67f1d2ce30353246a"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/utils/slot-calculations/calculateRequiredSlots.ts": {
+    "mtime": 1765163519.9783123,
+    "ast_hash": "0fa149f44015ba123dc786fae2616a58",
+    "semantic_hash": "0fa149f44015ba123dc786fae2616a58"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/fixed/NavBar.vue": {
+    "mtime": 1776127123.2088752,
+    "ast_hash": "c6de6345db49e06a52b951817745cd91",
+    "semantic_hash": "c6de6345db49e06a52b951817745cd91"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/fixed/BookingStepper.vue": {
+    "mtime": 1774051412.0750895,
+    "ast_hash": "f891abb910c4753197846caafad90a3e",
+    "semantic_hash": "f891abb910c4753197846caafad90a3e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/fixed/Footer.vue": {
+    "mtime": 1773381374.121819,
+    "ast_hash": "db52856797aecae7884b8803d58a912e",
+    "semantic_hash": "db52856797aecae7884b8803d58a912e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/Title.vue": {
+    "mtime": 1765425396.515867,
+    "ast_hash": "db8463e2f6df8a1f5ed06993ae316ccf",
+    "semantic_hash": "db8463e2f6df8a1f5ed06993ae316ccf"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/MainButton.vue": {
+    "mtime": 1765424790.571489,
+    "ast_hash": "7b897ac8b32b204ac0fd1f7e8ae4c312",
+    "semantic_hash": "7b897ac8b32b204ac0fd1f7e8ae4c312"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/ImageCard.vue": {
+    "mtime": 1764416774.5544093,
+    "ast_hash": "26ce12d5be0f970396ee60d82348460b",
+    "semantic_hash": "26ce12d5be0f970396ee60d82348460b"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/TimeSlotPicker.vue": {
+    "mtime": 1774428229.3672147,
+    "ast_hash": "edd39f8749c088fcd914b3ecd2bb1f9f",
+    "semantic_hash": "edd39f8749c088fcd914b3ecd2bb1f9f"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/HairStyleList.vue": {
+    "mtime": 1764564893.3465445,
+    "ast_hash": "7ed82e540eacbafa60613ecf674dd174",
+    "semantic_hash": "7ed82e540eacbafa60613ecf674dd174"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/DateTimePicker.vue": {
+    "mtime": 1774428229.3586423,
+    "ast_hash": "27c339a6e0a6a80d3012c913d78a0336",
+    "semantic_hash": "27c339a6e0a6a80d3012c913d78a0336"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/HairCategoryCard.vue": {
+    "mtime": 1764562377.2734318,
+    "ast_hash": "460374a87baa978787e62da53223dbb4",
+    "semantic_hash": "460374a87baa978787e62da53223dbb4"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/Calendar.vue": {
+    "mtime": 1774052856.7543397,
+    "ast_hash": "9052b90201abc7ae0e78084b7f592733",
+    "semantic_hash": "9052b90201abc7ae0e78084b7f592733"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/ui/reusable/Toast.vue": {
+    "mtime": 1774314132.1211224,
+    "ast_hash": "307739b13fd1419e454ab8f86262b7ae",
+    "semantic_hash": "307739b13fd1419e454ab8f86262b7ae"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/sections/HeroSection.vue": {
+    "mtime": 1764416722.4307454,
+    "ast_hash": "32107a7d93dfe3139e3f8edef5a07af2",
+    "semantic_hash": "32107a7d93dfe3139e3f8edef5a07af2"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/sections/booking/StepConfirmation.vue": {
+    "mtime": 1774051727.9873552,
+    "ast_hash": "4e4ef38e5f21e28f1f858cf64bf97c2b",
+    "semantic_hash": "4e4ef38e5f21e28f1f858cf64bf97c2b"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/sections/booking/StepDateTime.vue": {
+    "mtime": 1774052597.595842,
+    "ast_hash": "4d80b9bc45d2bd0a79a389adaf4f27d2",
+    "semantic_hash": "4d80b9bc45d2bd0a79a389adaf4f27d2"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/components/sections/booking/StepUserInfo.vue": {
+    "mtime": 1774052612.539445,
+    "ast_hash": "5609829fb41d054952a5ae9d3a2f31fe",
+    "semantic_hash": "5609829fb41d054952a5ae9d3a2f31fe"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/__tests__/App.spec.ts": {
+    "mtime": 1773138635.6834517,
+    "ast_hash": "c04b99ec458531e59b6541818594f123",
+    "semantic_hash": "c04b99ec458531e59b6541818594f123"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/__tests__/HomeView.spec.ts": {
+    "mtime": 1780418331.5893564,
+    "ast_hash": "e2aae417a2184aadddc70621a022fd1d",
+    "semantic_hash": "e2aae417a2184aadddc70621a022fd1d"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/__tests__/useBookingStepper.spec.ts": {
+    "mtime": 1780418273.5464027,
+    "ast_hash": "47458e9baf6f402da356b62690c50745",
+    "semantic_hash": "47458e9baf6f402da356b62690c50745"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/lib/api.ts": {
+    "mtime": 1780418289.0215867,
+    "ast_hash": "fad019b458cb227912878b430d73da1e",
+    "semantic_hash": "fad019b458cb227912878b430d73da1e"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/data/cms0.ts": {
+    "mtime": 1780420519.4048035,
+    "ast_hash": "c0f61d1628dfbaea2a6c289988cd9ae9",
+    "semantic_hash": "c0f61d1628dfbaea2a6c289988cd9ae9"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/views/BookingSuccess.vue": {
+    "mtime": 1765248854.4800556,
+    "ast_hash": "a92574073220f3847b6c4d3d8ae431b9",
+    "semantic_hash": "a92574073220f3847b6c4d3d8ae431b9"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/views/TakeAppointment.vue": {
+    "mtime": 1774430262.8124669,
+    "ast_hash": "db44683145dd0983c181e1bc411c9581",
+    "semantic_hash": "db44683145dd0983c181e1bc411c9581"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/views/ConfirmBooking.vue": {
+    "mtime": 1775275742.6627846,
+    "ast_hash": "75c4da18252a07fa34f0fd442a088cd6",
+    "semantic_hash": "75c4da18252a07fa34f0fd442a088cd6"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/views/HomeView.vue": {
+    "mtime": 1776046092.5446591,
+    "ast_hash": "c4a2e341921d6ec21fc03cee76636662",
+    "semantic_hash": "c4a2e341921d6ec21fc03cee76636662"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/src/router/index.ts": {
+    "mtime": 1769651455.3148234,
+    "ast_hash": "b309a387c2fe014348ae4d822175c406",
+    "semantic_hash": "b309a387c2fe014348ae4d822175c406"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/.opencode/opencode.json": {
+    "mtime": 1780089233.6010525,
+    "ast_hash": "e5f74d14a81702b55bdf53b33ec991d7",
+    "semantic_hash": "e5f74d14a81702b55bdf53b33ec991d7"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/.opencode/plugins/graphify.js": {
+    "mtime": 1780088477.773101,
+    "ast_hash": "64ccd3c03dbfe0980b6095766f5c4e52",
+    "semantic_hash": "64ccd3c03dbfe0980b6095766f5c4e52"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/package.json": {
+    "mtime": 1780364338.2456436,
+    "ast_hash": "55cadc547013556bc4d43a631111772c",
+    "semantic_hash": "55cadc547013556bc4d43a631111772c"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/tsconfig.json": {
+    "mtime": 1780364339.2026436,
+    "ast_hash": "1e0206925373c2b7fd6c532ddd40c1e3",
+    "semantic_hash": "1e0206925373c2b7fd6c532ddd40c1e3"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/index.ts": {
+    "mtime": 1780364489.057694,
+    "ast_hash": "7f00ef6abc37d73d13dd4494fac96005",
+    "semantic_hash": "7f00ef6abc37d73d13dd4494fac96005"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/blocked-event.dto.ts": {
+    "mtime": 1780419060.2397566,
+    "ast_hash": "798b3fd70fc181245bd4a1c4f4d6e59a",
+    "semantic_hash": "798b3fd70fc181245bd4a1c4f4d6e59a"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/hairstyle.dto.ts": {
+    "mtime": 1780419056.2648845,
+    "ast_hash": "28b51b6ff5c3feed17be4a08d0e055dc",
+    "semantic_hash": "28b51b6ff5c3feed17be4a08d0e055dc"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/booking.dto.ts": {
+    "mtime": 1780419059.2261047,
+    "ast_hash": "2fee9ce69039922a664560540283f068",
+    "semantic_hash": "2fee9ce69039922a664560540283f068"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/customer.dto.ts": {
+    "mtime": 1780419057.7431798,
+    "ast_hash": "fc8a94f81a9ed51f93eb2ebf7bd7a306",
+    "semantic_hash": "fc8a94f81a9ed51f93eb2ebf7bd7a306"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/category.dto.ts": {
+    "mtime": 1780419066.0859416,
+    "ast_hash": "c88bbf929cbf307a1f721f474ae75729",
+    "semantic_hash": "c88bbf929cbf307a1f721f474ae75729"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/availability.dto.ts": {
+    "mtime": 1780419061.9097986,
+    "ast_hash": "3abe91a225a19d6e43ab98b6eb31b7e8",
+    "semantic_hash": "3abe91a225a19d6e43ab98b6eb31b7e8"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/dtos/index.ts": {
+    "mtime": 1780419069.8983529,
+    "ast_hash": "ed1a39d946403cd48a1c3b4bf6557e25",
+    "semantic_hash": "ed1a39d946403cd48a1c3b4bf6557e25"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/lib/email.ts": {
+    "mtime": 1780364451.577148,
+    "ast_hash": "adb2e29ddb75b4b777e8e900d16f86f1",
+    "semantic_hash": "adb2e29ddb75b4b777e8e900d16f86f1"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/lib/supabase.ts": {
+    "mtime": 1780364345.5643852,
+    "ast_hash": "cf2c3cd7b74806cf5222c27a73132d1a",
+    "semantic_hash": "cf2c3cd7b74806cf5222c27a73132d1a"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/routes/availability.ts": {
+    "mtime": 1780364430.4811206,
+    "ast_hash": "0661a762ecb2450840347e374aebf3b2",
+    "semantic_hash": "0661a762ecb2450840347e374aebf3b2"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/routes/email.ts": {
+    "mtime": 1780364431.4735944,
+    "ast_hash": "90066ccfc5d6716033f1a49eb894afd0",
+    "semantic_hash": "90066ccfc5d6716033f1a49eb894afd0"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/routes/content.ts": {
+    "mtime": 1780364375.32562,
+    "ast_hash": "ca4452d65a63465da6892eb81b0ba255",
+    "semantic_hash": "ca4452d65a63465da6892eb81b0ba255"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/routes/bookings.ts": {
+    "mtime": 1780364431.0031483,
+    "ast_hash": "264d1985ec2e6ae79f77869b2bf0a775",
+    "semantic_hash": "264d1985ec2e6ae79f77869b2bf0a775"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/routes/categories.ts": {
+    "mtime": 1780364370.4458277,
+    "ast_hash": "1a674ff6837d22062987fa3f653f69e9",
+    "semantic_hash": "1a674ff6837d22062987fa3f653f69e9"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/routes/hairstyles.ts": {
+    "mtime": 1780364371.3764143,
+    "ast_hash": "939207e8d2c2865d8c2ff60ed013da9c",
+    "semantic_hash": "939207e8d2c2865d8c2ff60ed013da9c"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/services/hairstyle.service.ts": {
+    "mtime": 1780419078.9657326,
+    "ast_hash": "88c18edeb7fc4b9ac60d05ce367db03b",
+    "semantic_hash": "88c18edeb7fc4b9ac60d05ce367db03b"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/services/category.service.ts": {
+    "mtime": 1780419079.9794886,
+    "ast_hash": "0cd3e6500f60d940f0d19c2bc1010f8d",
+    "semantic_hash": "0cd3e6500f60d940f0d19c2bc1010f8d"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/services/availability.service.ts": {
+    "mtime": 1780419082.1361198,
+    "ast_hash": "4c551709a7a718dbc8e295da513171ca",
+    "semantic_hash": "4c551709a7a718dbc8e295da513171ca"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/services/cms.service.ts": {
+    "mtime": 1780364436.8286037,
+    "ast_hash": "3443f08e9169d1f99d3cfe0d4a5c2185",
+    "semantic_hash": "3443f08e9169d1f99d3cfe0d4a5c2185"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/services/booking.service.ts": {
+    "mtime": 1780419080.9860747,
+    "ast_hash": "aba8158b157bcd9535514b08a81e0f01",
+    "semantic_hash": "aba8158b157bcd9535514b08a81e0f01"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/backend/src/services/email.service.ts": {
+    "mtime": 1780364456.819512,
+    "ast_hash": "16805184108ae140358559ea13a3fd41",
+    "semantic_hash": "16805184108ae140358559ea13a3fd41"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/.vscode/launch.json": {
+    "mtime": 1774316426.8095608,
+    "ast_hash": "ed9810f4a1effa1146ecca5d6663b432",
+    "semantic_hash": "ed9810f4a1effa1146ecca5d6663b432"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/summary/project-overview.md": {
+    "mtime": 1780364548.92192,
+    "ast_hash": "705d6ed59f2ec8ecad5a58b613ac57f4",
+    "semantic_hash": "705d6ed59f2ec8ecad5a58b613ac57f4"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/index.html": {
+    "mtime": 1763516071.3975503,
+    "ast_hash": "5e715303f9221659f8e264bf71012fac",
+    "semantic_hash": "5e715303f9221659f8e264bf71012fac"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/pnpm-lock 2.yaml": {
+    "mtime": 1775427799.0,
+    "ast_hash": "79b2b1fbecf8da115f90889e8550d4a2",
+    "semantic_hash": "79b2b1fbecf8da115f90889e8550d4a2"
+  },
+  "/Users/donchiherve/Desktop/projects/haistylist/hairstylist-website/src/frontend/README.md": {
+    "mtime": 1773376660.3142636,
+    "ast_hash": "77d01aafc59c7a95a310a9599ad84d50",
+    "semantic_hash": "77d01aafc59c7a95a310a9599ad84d50"
+  }
+}
