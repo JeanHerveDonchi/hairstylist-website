@@ -48,7 +48,7 @@ This is not just a portfolio piece — it is a real business tool built for a re
 
 - **Bun** runtime — fast startup, native TypeScript, no transpilation step
 - **ElysiaJS** — typed, lightweight HTTP framework with built-in schema validation (TypeBox)
-- **Route groups:** `/api/categories`, `/api/hairstyles`, `/api/availability`, `/api/bookings`, `/api/content`, `/api/email`
+- **Route groups:** `/api/categories`, `/api/hairstyles`, `/api/availability`, `/api/bookings`, `/api/email`
 - All business logic lives here — the frontend is a thin UI layer
 
 ### Database — Supabase (PostgreSQL)
@@ -90,12 +90,13 @@ Browser (Vue 3 SPA)
     ├── GET /api/hairstyles ──────┤
     ├── GET /api/availability ────┼── ElysiaJS (Bun)  :3000
     ├── POST /api/bookings ───────┤       │
-    ├── GET /api/content ─────────┘       ├── Supabase (PostgreSQL)
-    └── POST /api/email                   ├── cms0 (content proxy)
+    └── POST /api/email          ─┘       ├── Supabase (PostgreSQL)
                                           └── EmailJS (transactional email)
+    │
+    └── cms0 delivery API ─────────────── cms0.io (read-only key, safe to bundle)
 ```
 
-**Every external data source is proxied through the Elysia backend.** The client bundle contains zero API keys. This architecture also makes it straightforward to add authentication middleware, rate limiting, and request logging in one place.
+**Supabase and EmailJS are exclusively server-side.** The frontend calls cms0 directly using a read-only delivery key — it cannot modify content. This architecture makes it straightforward to add authentication middleware, rate limiting, and request logging in one place for all mutable operations.
 
 ---
 
@@ -117,7 +118,7 @@ Custom scheduling logic that computes available time slots from business hours, 
 Integrated cms0 as a code-first CMS. The schema-as-code approach keeps content contracts in version control and eliminates CMS configuration drift. The backend proxies CMS requests so the client never holds credentials.
 
 ### Localization
-Bilingual FR/EN support with a composable-based locale system (`useLocale`, `useLocalized`). Locale persisted to `localStorage`, default French. All localizable content uses a `LocalizedString` type (`{ fr: string, en: string }`) — adding a language is a schema change, not a refactor.
+Bilingual FR/EN support built as a clean composable layer: `LocaleService` handles localStorage persistence, `useLocale()` exposes a module-level singleton reactive `locale` ref (so all components share one source of truth without a store), and `getLocalizedString()` resolves a `LocalizedString` value with fallback to the CMS-defined default locale. `LocalizedString` uses the cms0 native shape `{ defaultLocale: string, locales: Record<string, string> }` — adding a third language is a schema-only change with zero component rewrites.
 
 ### Security Practices
 - No API keys in the client bundle
@@ -161,11 +162,13 @@ bun run dev            # starts on :5173
 |----------|-------|---------|
 | `SUPABASE_URL` | Backend | Supabase project URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | Backend | Server-side DB access |
-| `CMS0_API_BASEURL` | Backend | cms0 content API endpoint |
-| `CMS0_API_KEY` | Backend | cms0 authentication |
+| `CMS0_API_BASEURL` | Backend | cms0 API endpoint (management key — for `cms0 dev` CLI) |
+| `CMS0_API_KEY` | Backend | cms0 management key (read-write, CLI only) |
 | `EMAILJS_SERVICE_ID` | Backend | EmailJS service |
 | `EMAILJS_PUBLIC_KEY` | Backend | EmailJS auth |
 | `VITE_API_BASEURL` | Frontend | Points to Elysia backend |
+| `VITE_CMS0_API_BASEURL` | Frontend | cms0 delivery API endpoint |
+| `VITE_CMS0_API_KEY` | Frontend | cms0 delivery key (read-only, safe to bundle) |
 
 ---
 
