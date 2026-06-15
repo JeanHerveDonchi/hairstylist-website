@@ -19,7 +19,7 @@
     "build": "pnpm run cms0:build && run-p type-check \"build-only {@}\" --"
   },
   "dependencies": {
-    "@cms0/cms0": "^0.2.17",
+    "@cms0/cms0": "^0.4.0",
     "@tailwindcss/vite": "^4.1.17",
     "dotenv": "^17.4.2",
     "pinia": "^3.0.3",

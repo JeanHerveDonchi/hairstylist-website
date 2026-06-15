@@ -1,19 +1,31 @@
 import { ref } from "vue";
+import { LocaleService } from "@/services/locale.service";
+import { SUPPORTED_LOCALES, type Locale } from "@/constants/locales";
 
-//global shared state (singleton)
-const locale = ref<'fr' | 'en'>(
-  localStorage.getItem('locale') as 'fr' | 'en'
-) || 'fr';
+//share reactive ref - single source of truth accross app
+const locale = ref<Locale>(LocaleService.getCurrentLocale());
 
-//global language switch
 export function useLocale() {
-  const setLocale = (newLocale: 'fr' | 'en') => {
-    locale.value = newLocale
-    localStorage.setItem('locale', newLocale);
+  function setLocale(newLocale: Locale) {
+    if (LocaleService.isSupportedLocale(newLocale)) {
+      locale.value = newLocale;
+      LocaleService.setCurrentLocale(newLocale);
+    }
+  }
+
+  function toggleLocale() {
+    const currentIndex = SUPPORTED_LOCALES.indexOf(locale.value);
+    const nextIndex = (currentIndex + 1) % SUPPORTED_LOCALES.length;
+    const nextLocale = SUPPORTED_LOCALES[nextIndex];
+    if (nextLocale !== undefined) {
+      setLocale(nextLocale);
+    }
   }
 
   return {
     locale,
     setLocale,
-  }
+    toggleLocale
+  };
 }
+

@@ -3,43 +3,53 @@ import { ref, computed, onMounted } from 'vue'
 import { COLORS } from '@/constants/colors'
 import { useRoute, useRouter } from 'vue-router'
 import { useLocale } from '@/composables/useLocale'
-import { useLocalized } from '@/utils/locales/useLocalized'
 import { cms } from '@/data/cms0'
 import type { RootSchema } from '@/data/cms0'
+import { watch } from 'vue'
+import { getLocalizedString } from '@/utils/locales/localized'
 
 const router = useRouter()
 const route = useRoute()
 const isMobileMenuOpen = ref(false)
 
-const { locale, setLocale } = useLocale()
-const { t } = useLocalized()
+const { locale, toggleLocale } = useLocale()
 
 const siteSettings = ref<RootSchema['SiteSettings'] | null>(null)
 
-onMounted(async () => {
-  siteSettings.value = await cms.SiteSettings()
-})
+async function loadSiteSettings(){
+  try {
+    const settings = await cms.SiteSettings({ locale: locale.value })
+    siteSettings.value = settings
+  } catch (error) {
+    console.error('Failed to load site settings:', error)
+  }
+}
+
+onMounted(() => {
+  console.log(siteSettings.value);
+  loadSiteSettings();
+});
+
+watch(locale, loadSiteSettings)
+
 
 // computed localized labels (reactive to locale changes)
 const servicesLabel = computed(() =>
-  siteSettings.value ? t(siteSettings.value.navbar.servicesLabel, locale.value) : undefined
+  siteSettings.value ? getLocalizedString(siteSettings.value.navbar.servicesLabel, locale.value) : undefined
 )
 
 const contactsLabel = computed(() =>
-  siteSettings.value ? t(siteSettings.value.navbar.contactsLabel, locale.value) : undefined
+  siteSettings.value ? getLocalizedString(siteSettings.value.navbar.contactsLabel, locale.value) : undefined
 )
 
 const bookingLabel = computed(() =>
-  siteSettings.value ? t(siteSettings.value.navbar.bookingCta, locale.value) : undefined
+  siteSettings.value ? getLocalizedString(siteSettings.value.navbar.bookingCta, locale.value) : undefined
 )
 
 const brandName = computed(() =>
-  siteSettings.value ? t(siteSettings.value.brandName, locale.value) : undefined
+  siteSettings.value ? getLocalizedString(siteSettings.value.brandName, locale.value) : undefined
 )
 
-const toggleLocale = () => {
-  setLocale(locale.value === 'fr' ? 'en' : 'fr')
-}
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
